@@ -10,12 +10,13 @@ AppDataSource.initialize()
     // Se a conexão for bem-sucedida, inicializa o servidor
     const server = express();
 
-    // Middlewares
     server.use(express.json());
     server.use(router);
 
     const port = process.env.PORT || 3000; // Porta definida no .env ou 3000 como padrão
     server.listen(port, () => {
+      console.log(" ");
+      console.log("************************");
       console.log(`Servidor rodando na porta ${port}`);
     });
   })
