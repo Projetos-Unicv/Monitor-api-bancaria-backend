@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "dev": "docker start postgres-db && nodemon ./src/index.ts ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src && node dist/server.js",
+    "dev": "docker start postgres-db && nodemon ./src/server.ts ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/server/shared/database/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+    "migration:revert": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:revert"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +21,7 @@
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
     "tsc": "^2.0.4",
+    "tsup": "^8.2.4",
     "typeorm": "^0.3.20",
     "yup": "^1.4.0"
   },

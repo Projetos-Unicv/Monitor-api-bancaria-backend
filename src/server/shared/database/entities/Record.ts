@@ -3,9 +3,12 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 
 import { recordInterface } from "../../interfaces/record-Interface";
+import { Bank } from "./Bank";
 
 @Entity("records")
 export class Record implements recordInterface {
@@ -18,11 +21,15 @@ export class Record implements recordInterface {
   @Column({ type: "int" })
   status_code: string;
 
-  @Column({ type: "varchar", length: 50 })
-  cod_banco: number;
+  @ManyToOne(() => Bank, (bank) => bank.id, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "bank_id" })
+  id_bank: Bank;
 
   @CreateDateColumn({ type: "timestamp" })
   date_created: Date;
+
+  @Column({ type: "text" })
+  teste: string;
 
   @Column({ type: "varchar", length: 10 })
   status: string;
@@ -31,5 +38,5 @@ export class Record implements recordInterface {
   request_time: number;
 
   @Column({ type: "jsonb" })
-  payload_response: JSON;
+  payload_response: object;
 }

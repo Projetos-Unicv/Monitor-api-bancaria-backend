@@ -1,7 +1,8 @@
 import "dotenv/config";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Bank } from "./server/shared/database/entities/Bank";
+// import { Bank } from "./server/shared/database/entities/Bank";
+// import { Record } from "./server/shared/database/entities/Record";
 
 const port = process.env.DB_PORT as number | undefined;
 
@@ -12,10 +13,10 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  synchronize: true, // Somente para desenvolvimento. Não use em produção!
-  entities: [Bank],
+  // synchronize: false, // Desative synchronize para gerar migrações corretamente
+  // entities: [`${__dirname}+server/shared/database/entities/Bank.{ts,js}`],
+  entities: ["./src/server/shared/database/entities/*.{ts,js}"],
+  migrations: ["./src/server/shared/database/migration/*.{ts,js}"],
 
-  //   logging: true,
-  //   subscribers: [],
-  //   migrations: [],
+  // logging: true, // Habilite o logging para depuração, se necessário
 });
