@@ -1,0 +1,9 @@
+PORT;
+
+DB_HOST;
+DB_PORT;
+DB_USER;
+DB_PASS;
+DB_NAME;
+
+// criar um arquivo com esse modelo e salvar como ".env" e deixar variaveis de ambientes prontas
