@@ -9,8 +9,6 @@ export class Bank implements bankInterface {
   id: number;
   @Column({ type: "text" })
   name: string;
-  @Column({ type: "text" })
-  teste: string;
-  @OneToMany(() => Record, (record) => record.id_bank)
+  @OneToMany(() => Record, (record) => record.idBank)
   record: Record[];
 }

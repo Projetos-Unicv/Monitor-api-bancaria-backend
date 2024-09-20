@@ -19,24 +19,21 @@ export class Record implements recordInterface {
   type: string;
 
   @Column({ type: "int" })
-  status_code: string;
+  codeResponse: string;
 
   @ManyToOne(() => Bank, (bank) => bank.id, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "bank_id" })
-  id_bank: Bank;
+  @JoinColumn({ name: "bankId" })
+  idBank: Bank;
 
   @CreateDateColumn({ type: "timestamp" })
-  date_created: Date;
-
-  @Column({ type: "text" })
-  teste: string;
+  dateCreated: Date;
 
   @Column({ type: "varchar", length: 10 })
   status: string;
 
   @Column({ type: "int" })
-  request_time: number;
+  timeRequest: number;
 
   @Column({ type: "jsonb" })
-  payload_response: object;
+  payloadResponse: object;
 }
