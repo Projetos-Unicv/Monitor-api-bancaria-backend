@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 // import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup';
-import { validation } from '../../shared/middleware/validation';
+import { validation } from '../../../shared/middleware/validation';
 import { StatusCodes } from 'http-status-codes';
 
 interface IQueryProps {

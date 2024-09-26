@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { consultaController } from '../controllers';
+import { consultaController } from '../controller';
 export const consultaRouter = Router();
 
 consultaRouter.get('/'); // get all
