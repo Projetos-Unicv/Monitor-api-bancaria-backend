@@ -1,6 +1,6 @@
 import { Router } from 'express';
 // import { registroRouter } from "../../routes/Registro";
-import { consultaRouter } from '../../modules/Consulta/routes/routes';
+import { consultaRouter } from '../../modules/Registros/routes/routes';
 
 // import { StatusCodes } from "http-status-codes";
 
@@ -12,4 +12,4 @@ router.get('/', (_, res) => {
 });
 
 // router.use("/registro", registroRouter);
-router.use('/consulta', consultaRouter);
+router.use('/', consultaRouter);

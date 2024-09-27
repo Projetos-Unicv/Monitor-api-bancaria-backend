@@ -4,7 +4,7 @@ export const consultaRouter = Router();
 
 consultaRouter.get('/'); // get all
 consultaRouter.get(
-  '/:banco',
-  consultaController.getAll,
-  consultaController.getAll
+  '/:type/:bank',
+  consultaController.getRecordsValidation,
+  consultaController.getRecords
 ); // get unique
