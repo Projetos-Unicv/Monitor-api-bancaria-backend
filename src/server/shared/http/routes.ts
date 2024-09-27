@@ -1,6 +1,6 @@
 import { Router } from 'express';
 // import { registroRouter } from "../../routes/Registro";
-import { consultaRouter } from '../../modules/Registros/routes/routes';
+import { consultaRouter } from '../../modules/Record/routes/routes';
 
 // import { StatusCodes } from "http-status-codes";
 

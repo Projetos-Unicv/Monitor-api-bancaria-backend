@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { validation } from '../../../shared/middleware/validation';
 //enums
 import { TypeRequest } from '../enums/TypeRequest';
-import { bankOptions } from '../enums/Banks';
+import { bankOptions } from '../../Bank/enums/Banks';
 import { FilterTimes } from '../enums/FilterTimes';
 //service
 import { GetRecordsService } from '../service/Record/getRecordService';

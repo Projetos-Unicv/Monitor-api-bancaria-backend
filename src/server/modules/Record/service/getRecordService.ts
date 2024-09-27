@@ -1,6 +1,6 @@
-import { Record } from '../../../../shared/database/entities/Record';
-import { RecordRepository } from '../../repository/RecordRepository';
-import { GetBankService } from '../../service/Bank/getBankService';
+import { Record } from '../../../shared/database/entities/Record';
+import { RecordRepository } from '../repository/RecordRepository';
+import { GetBankService } from '../../Bank/service/getBankService';
 export class GetRecordsService {
   async execute(bank: string, type: string, filter: string): Promise<Record[]> {
     const servicebank = new GetBankService();
