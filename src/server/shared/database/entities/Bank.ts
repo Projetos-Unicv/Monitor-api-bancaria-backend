@@ -1,14 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { bankInterface } from "../../interfaces/bank-Interface";
-import { Record } from "./Record";
+import { bankInterface } from '../../interfaces/bank-Interface';
+import { Record } from './Record';
 
-@Entity("banks")
+@Entity('banks')
 export class Bank implements bankInterface {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ type: "text" })
+  @Column({ type: 'text' })
   name: string;
-  @OneToMany(() => Record, (record) => record.idBank)
+  @OneToMany(() => Record, (record) => record.bankId)
   record: Record[];
 }

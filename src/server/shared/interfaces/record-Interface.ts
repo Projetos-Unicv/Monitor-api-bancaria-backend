@@ -1,10 +1,11 @@
-import { Bank } from "../database/entities/Bank";
+import { Bank } from '../database/entities/Bank';
 
 export interface recordInterface {
   id: number;
   type: string;
   codeResponse: string;
-  idBank: Bank;
+  bank: Bank;
+  bankId: number;
   dateCreated: Date;
   status: string;
   timeRequest: number;

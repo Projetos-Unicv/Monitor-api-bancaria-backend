@@ -7,13 +7,18 @@ import { validation } from '../../../shared/middleware/validation';
 import { TypeRequest } from '../enums/TypeRequest';
 import { bankOptions } from '../enums/Banks';
 import { FilterTimes } from '../enums/FilterTimes';
-
+//service
+import { GetRecordsService } from '../service/Record/getRecordService';
 interface IQueryProps {
-  filter?: FilterTimes;
+  filter: FilterTimes;
 }
-interface IParamsProps {
+interface IParamsSchema {
   bank: bankOptions;
   type: TypeRequest;
+}
+interface IParamsProps {
+  bank: string;
+  type: string;
 }
 
 export const getRecordsValidation = validation((getSchema) => ({
@@ -22,10 +27,10 @@ export const getRecordsValidation = validation((getSchema) => ({
       filter: yup
         .mixed<FilterTimes>()
         .oneOf(Object.values(FilterTimes))
-        .optional(),
+        .required(),
     })
   ),
-  params: getSchema<IParamsProps>(
+  params: getSchema<IParamsSchema>(
     yup.object().shape({
       bank: yup
         .mixed<bankOptions>()
@@ -39,16 +44,11 @@ export const getRecordsValidation = validation((getSchema) => ({
   ),
 }));
 
-export const getRecords = async (
-  req: Request<{}, {}, {}, IQueryProps>, // passando na 4º posição pois é para deixar o req.query usando como padrão de interface o IQueryProps
-  res: Response
-) => {
-  console.log(req.params);
-  console.log(req.query);
+export const getRecords = async (req: Request, res: Response) => {
+  const { type, bank } = req.params;
+  const filter = req.query.filter;
 
-  return res.status(StatusCodes.OK).json([
-    {
-      message: 'Aprovado',
-    },
-  ]);
+  const service = new GetRecordsService();
+  const result = await service.execute(bank, type, 'DAY');
+  return res.json(result).status(StatusCodes.OK);
 };

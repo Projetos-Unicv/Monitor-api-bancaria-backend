@@ -5,35 +5,38 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
-} from "typeorm";
+} from 'typeorm';
 
-import { recordInterface } from "../../interfaces/record-Interface";
-import { Bank } from "./Bank";
+import { recordInterface } from '../../interfaces/record-Interface';
+import { Bank } from './Bank';
 
-@Entity("records")
+@Entity('records')
 export class Record implements recordInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   type: string;
 
-  @Column({ type: "int" })
+  @Column({ type: 'int' })
   codeResponse: string;
 
-  @ManyToOne(() => Bank, (bank) => bank.id, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "bankId" })
-  idBank: Bank;
+  @ManyToOne(() => Bank, (bank) => bank.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'bankId' })
+  bank: Bank;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @Column({ type: 'int' })
+  bankId: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
   dateCreated: Date;
 
-  @Column({ type: "varchar", length: 10 })
+  @Column({ type: 'varchar', length: 10 })
   status: string;
 
-  @Column({ type: "int" })
+  @Column({ type: 'int' })
   timeRequest: number;
 
-  @Column({ type: "jsonb" })
+  @Column({ type: 'jsonb' })
   payloadResponse: object;
 }

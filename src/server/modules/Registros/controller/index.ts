@@ -1,4 +1,4 @@
-import * as getAll from './getRecords';
+import * as getAll from './getRecordController';
 
 export const consultaController = {
   ...getAll,
