@@ -21,12 +21,9 @@ export class Record implements recordInterface {
   @Column({ type: 'int' })
   codeResponse: string;
 
-  @ManyToOne(() => Bank, (bank) => bank.id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'bankId' })
-  bank: Bank;
-
-  @Column({ type: 'int' })
-  bankId: number;
+  @ManyToOne(() => Bank, (bank) => bank.bankCode, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'bankCode' })
+  bankCode: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   dateCreated: Date;

@@ -8,7 +8,7 @@ import { TypeRequest } from '../enums/TypeRequest';
 import { bankOptions } from '../../Bank/enums/Banks';
 import { FilterTimes } from '../enums/FilterTimes';
 //service
-import { GetRecordsService } from '../service/Record/getRecordService';
+import { GetRecordsService } from '../service/getRecordService';
 interface IQueryProps {
   filter: FilterTimes;
 }
