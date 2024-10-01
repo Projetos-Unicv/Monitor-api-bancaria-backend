@@ -16,10 +16,6 @@ interface IParamsSchema {
   bank: bankOptions;
   type: TypeRequest;
 }
-interface IParamsProps {
-  bank: string;
-  type: string;
-}
 
 export const getRecordsValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
@@ -46,9 +42,11 @@ export const getRecordsValidation = validation((getSchema) => ({
 
 export const getRecords = async (req: Request, res: Response) => {
   const { type, bank } = req.params;
-  const filter = req.query.filter;
+  const filter: FilterTimes | undefined = req.query.filter
+    ? (req.query.filter as FilterTimes)
+    : undefined;
 
   const service = new GetRecordsService();
-  const result = await service.execute(bank, type, 'DAY');
+  const result = await service.execute(bank, type, filter);
   return res.json(result).status(StatusCodes.OK);
 };
