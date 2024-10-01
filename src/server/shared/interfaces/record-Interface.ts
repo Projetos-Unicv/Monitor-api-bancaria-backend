@@ -4,8 +4,7 @@ export interface recordInterface {
   id: number;
   type: string;
   codeResponse: string;
-  bank: Bank;
-  bankId: number;
+  bankCode: number;
   dateCreated: Date;
   status: string;
   timeRequest: number;
