@@ -11,6 +11,6 @@ export class Bank implements bankInterface {
   name: string;
   @Column({ type: 'int' })
   bankCode: number;
-  @OneToMany(() => Record, (record) => record.bankCode)
+  @OneToMany(() => Record, (record) => record.bankId)
   record: Record[];
 }
