@@ -4,7 +4,7 @@ export const consultaRouter = Router();
 
 consultaRouter.get('/'); // get all
 consultaRouter.get(
-  '/api-data-list/:type/:bank',
+  '/boletos/:type/:bank',
   consultaController.getRecordsValidation,
   consultaController.getRecords
 );
