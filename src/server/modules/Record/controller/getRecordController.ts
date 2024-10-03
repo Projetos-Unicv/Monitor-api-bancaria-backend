@@ -12,6 +12,7 @@ import { GetRecordsService } from '../service/getRecordService';
 //interfaces - Schemas
 import { IParamsSchema } from '../schemas/IParamsSchema';
 import { IQueryProps } from '../interfaces/IQueryProps';
+import AppError from '../../../shared/errors/AppError';
 
 export const getRecordsValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
@@ -19,7 +20,7 @@ export const getRecordsValidation = validation((getSchema) => ({
       filter: yup
         .mixed<FilterTimes>()
         .oneOf(Object.values(FilterTimes))
-        .required(),
+        .optional(),
     })
   ),
   params: getSchema<IParamsSchema>(
@@ -42,7 +43,20 @@ export const getRecords = async (req: Request, res: Response) => {
     ? (req.query.filter as FilterTimes)
     : undefined;
 
+  console.log(req.params);
+  console.log(req.query);
   const service = new GetRecordsService();
-  const result = await service.execute(bank, type, filter);
-  return res.json(result).status(StatusCodes.OK);
+  try {
+    const result = await service.execute(bank, type, filter);
+    return res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    console.error('Erro ao obter registros:', error);
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({ message: error.message });
+    } else {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Erro inesperado ao processar a solicitação.' });
+    }
+  }
 };
