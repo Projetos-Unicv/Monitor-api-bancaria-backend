@@ -9,13 +9,9 @@ import { bankOptions } from '../../Bank/enums/Banks';
 import { FilterTimes } from '../enums/FilterTimes';
 //service
 import { GetRecordsService } from '../service/getRecordService';
-interface IQueryProps {
-  filter: FilterTimes;
-}
-interface IParamsSchema {
-  bank: bankOptions;
-  type: TypeRequest;
-}
+//interfaces - Schemas
+import { IParamsSchema } from '../schemas/IParamsSchema';
+import { IQueryProps } from '../interfaces/IQueryProps';
 
 export const getRecordsValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
