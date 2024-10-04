@@ -1,3 +1,4 @@
 export enum StateType {
-  OFF = 'inativo',
+  inativo = 'inativo',
+  ativo = 'ativo',
 }

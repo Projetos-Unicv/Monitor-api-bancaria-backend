@@ -4,12 +4,19 @@ import { GetBankService } from '../../Bank/service/getBankService';
 import { FilterTimes } from '../enums/FilterTimes';
 import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
 import { recordInterface } from '../../../shared/interfaces/record-Interface';
+import { StateType } from '../enums/StateType';
 
 export class GetRecordsService {
-  async execute(bank: string, type: string, filter: FilterTimes | undefined) {
+  async execute(
+    bank: string,
+    type: string,
+    filter: FilterTimes | undefined,
+    status: StateType | undefined
+  ) {
     const servicebank = new GetBankService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
+    console.log(status);
 
     // Definindo o limite com base no filtro
     let limit = 0;
@@ -21,17 +28,31 @@ export class GetRecordsService {
       limit = 8640;
     }
 
-    const result = await RecordRepository.ListRecords(Idbank, type, limit);
+    let result;
 
-    //percorre e verifica se tem pelo menos um registro
+    // Verifica se o status é indefinido e chama a função adequada
+    if (status === undefined) {
+      result = await RecordRepository.ListRecords(Idbank, type, limit);
+    } else {
+      result = await RecordRepository.listRecordsByStatus(
+        Idbank,
+        type,
+        limit,
+        status
+      );
+    }
+
+    // Verifica se result existe e contém pelo menos um registro
     if (result && result.length > 0) {
-      //percorre todo o registro
-      const registrosFormatados = result.map((record) => ({
+      // Formata o campo dateCreated de cada registro
+      const registrosFormatados = result.map((record: any) => ({
         ...record,
-        dateCreated: formatarDataParaBrasil(record.dateCreated),
+        dateCreated: formatarDataParaBrasil(new Date(record.dateCreated)),
       }));
       return registrosFormatados;
     }
-    return;
+
+    // Caso não haja registros, retorna uma lista vazia ou null
+    return [];
   }
 }

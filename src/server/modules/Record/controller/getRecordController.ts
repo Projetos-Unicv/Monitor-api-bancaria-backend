@@ -13,6 +13,7 @@ import { GetRecordsService } from '../service/getRecordService';
 import { IParamsSchema } from '../schemas/IParamsSchema';
 import { IQueryProps } from '../interfaces/IQueryProps';
 import AppError from '../../../shared/errors/AppError';
+import { StateType } from '../enums/StateType';
 
 export const getRecordsValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
@@ -21,6 +22,7 @@ export const getRecordsValidation = validation((getSchema) => ({
         .mixed<FilterTimes>()
         .oneOf(Object.values(FilterTimes))
         .optional(),
+      status: yup.mixed<StateType>().oneOf(Object.values(StateType)).optional(),
     })
   ),
   params: getSchema<IParamsSchema>(
@@ -42,12 +44,15 @@ export const getRecords = async (req: Request, res: Response) => {
   const filter: FilterTimes | undefined = req.query.filter
     ? (req.query.filter as FilterTimes)
     : undefined;
+  const status: StateType | undefined = req.query.status
+    ? (req.query.status as StateType)
+    : undefined;
 
-  console.log(req.params);
   console.log(req.query);
+
   const service = new GetRecordsService();
   try {
-    const result = await service.execute(bank, type, filter);
+    const result = await service.execute(bank, type, filter, status);
     return res.status(StatusCodes.OK).json(result);
   } catch (error) {
     console.error('Erro ao obter registros:', error);
