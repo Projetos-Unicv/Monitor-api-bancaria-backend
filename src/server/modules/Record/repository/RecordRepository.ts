@@ -1,5 +1,8 @@
 import { Record } from '../../../shared/database/entities/Record';
 import { AppDataSource } from '../../../../data-source';
+import { TypeRequest } from '../enums/TypeRequest';
+import { StateType } from '../enums/StateType';
+import { Bank } from '../../../shared/database/entities/Bank';
 
 export const RecordRepository = AppDataSource.getRepository(Record).extend({
   ListRecords(codeBank: number, type: string, limit: number) {
@@ -23,5 +26,22 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .take(limit) // Limita a quantidade de registros
         .getMany(); // Retorna uma lista de registros
     }
+  },
+  createRecord(
+    type: TypeRequest,
+    CodeResponse: string,
+    status: StateType,
+    timeRequest: number,
+    payload: object,
+    bankId: Bank
+  ) {
+    return this.createQueryBuilder('records').insert().into(Record).values({
+      type: type,
+      codeResponse: CodeResponse,
+      status: status,
+      timeRequest: timeRequest,
+      payloadResponse: payload,
+      bank: bankId,
+    });
   },
 });
