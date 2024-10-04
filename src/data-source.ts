@@ -2,6 +2,8 @@ import 'dotenv/config';
 import { dirname } from 'path';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
+import { Bank } from './server/shared/database/entities/Bank';
+import { Record } from './server/shared/database/entities/Record';
 
 const port = process.env.DB_PORT as number | undefined;
 export const AppDataSource = new DataSource({
@@ -13,7 +15,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: false, // Desative synchronize para gerar migrações corretamente
   // entities: [`${__dirname}+server/shared/database/entities/Bank.{ts,js}`],
-  entities: [`${dirname}/server/shared/database/entities/*.{ts,js}`],
+  entities: [Bank, Record],
   migrations: [`${dirname}/server/shared/database/migrations/*.{ts,js}`],
   migrationsTableName: 'Migrations',
   // logging: true, // Habilite o logging para depuração, se necessário
