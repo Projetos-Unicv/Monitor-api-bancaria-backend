@@ -1,0 +1,4 @@
+export enum bankOptions {
+  BANCODOBRASIL = 'BANCODOBRASIL',
+  SANTADANDER = 'SANTANDER',
+}
