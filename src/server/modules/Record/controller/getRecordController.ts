@@ -48,8 +48,6 @@ export const getRecords = async (req: Request, res: Response) => {
     ? (req.query.status as StateType)
     : undefined;
 
-  console.log(req.query);
-
   const service = new GetRecordsService();
   try {
     const result = await service.execute(bank, type, filter, status);

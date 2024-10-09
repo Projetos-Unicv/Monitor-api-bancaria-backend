@@ -16,7 +16,6 @@ export class GetRecordsService {
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
-    console.log(status);
 
     // Definindo o limite com base no filtro
     let limit = 0;
