@@ -1,31 +1,26 @@
+# Configurações do Servidor
 PORT=
 
+# Configurações do Banco de Dados
 DB_HOST=
 DB_PORT=
 DB_USER=
 DB_PASS=
 DB_NAME=
 
-TYPEORM_MIGRATIONS= src/server/shared/database/migrations/*.ts
-TYPEORM_MIGRATIONS_DIR=src/server/shared/database/migrations
-TYPEORM_ENTITIES= src/server/shared/database/entities/*.ts
-TYPEORM_ENTITIES_DIR= src/server/shared/database/entities
+# Configurações do TypeORM
+TYPEORM_MIGRATIONS=
+TYPEORM_MIGRATIONS_DIR=
+TYPEORM_ENTITIES=
+TYPEORM_ENTITIES_DIR=
 
-## Vars voltadas para API
-
-
-## usuario
-
+# Variáveis para API
 CNPJ_SH=
 TOKEN_SH=
 CNPJ_CEDENTE=
 CONTENT_TYPE=
+URL_API=
 
+# Configurações do Banco do Brasil
+CONTA_BB={"CEDENTE_CONTA_NUMERO":"","CEDENTE_CONTA_NUMERO_DV":"","CEDENTE_CONVENIO_NUMERO":"","CEDENTE_CONTA_CODIGO_BANCO":""}
 
-## API
-URL_API=https://homologacao.plugboleto.com.br/api/v1
-##Banco do Brasil
-CEDENTE_CONTA_NUMERO=
-CEDENTE_CONTA_NUMERO_DV=
-CEDENTE_CONVENIO_NUMERO=
-CEDENTE_CONTA_CODIGO_BANCO=
