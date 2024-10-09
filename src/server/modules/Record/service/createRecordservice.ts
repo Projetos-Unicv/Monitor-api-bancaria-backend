@@ -20,12 +20,9 @@ export class createRecordsService {
     const bank = await bankService.execute(bancoCode);
     const codigosPositivos = Object.values(PositiveCodeRequest);
 
-    if (codigosPositivos.includes(codeResponse)) {
-      console.log('teste passou');
+    if (codigosPositivos.includes(Number(codeResponse))) {
       status = StateType.ativo;
     } else {
-      console.log(codeResponse);
-      console.log('veio no else');
       status = StateType.inativo;
     }
     const tete = await repo.CreateRecord(

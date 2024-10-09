@@ -2,7 +2,7 @@ export const BodyDefault = {
   SacadoCPFCNPJ: '08357906000170',
   SacadoEnderecoNumero: '987',
   SacadoEnderecoBairro: 'Centro',
-  SacadoEnderecoCEP: '87045430',
+  SacadoEnderecoCEP: '87045-430',
   SacadoEnderecoCidade: 'Maringá',
   SacadoEnderecoComplemento: 'Fundos',
   SacadoEnderecoLogradouro: 'Rua teste, 987',

@@ -1,15 +1,12 @@
 import { TypeRequest } from '../modules/Record/enums/TypeRequest';
 import { createRecordsService } from '../modules/Record/service/createRecordservice';
+import { convert_Env } from '../shared/services/ConvertEnvToJSON';
+import { CedenteInterface } from './interfaces/CedenteInterface';
 import { RegistroBoleto } from './Registro/RegistroBoletoAPI';
 
 export const AllReqs = async () => {
-  const cedente = {
-    CedenteContaNumero: '123456',
-    CedenteContaNumeroDV: '6',
-    CedenteConvenioNumero: '123456',
-    CedenteContaCodigoBanco: '033',
-  };
-
+  const cedente: CedenteInterface = await convert_Env(process.env.CONTA_BB);
+  console.log(cedente);
   try {
     const data = await RegistroBoleto(cedente); // Chamada assíncrona
 
@@ -19,7 +16,13 @@ export const AllReqs = async () => {
     const payload = data.details; // Payload da resposta
 
     const service = new createRecordsService();
-    service.execute(tempReq, type, codeResponse, payload, 1);
+    service.execute(
+      tempReq,
+      type,
+      codeResponse,
+      payload,
+      Number(cedente.CEDENTE_CONTA_CODIGO_BANCO)
+    );
 
     return data; // Retorna os dados para quem chamar a função
   } catch (error) {

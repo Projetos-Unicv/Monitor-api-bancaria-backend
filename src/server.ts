@@ -7,6 +7,14 @@ import cors from 'cors';
 import { AllReqs } from './server/api/AllRequest';
 import { handleAxiosError } from './server/shared/errors/ErrorAxios';
 // Inicializando o banco de dados
+const fetchData = async () => {
+  try {
+    await AllReqs(); // Aguarda a resolução da função
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
+    handleAxiosError(error);
+  }
+};
 AppDataSource.initialize()
   .then(() => {
     // Se a conexão for bem-sucedida, inicializa o servidor
@@ -22,16 +30,10 @@ AppDataSource.initialize()
       console.log(' ');
       console.log('************************');
       console.log(`Servidor rodando na porta ${port}`);
-
-      const fetchData = async () => {
-        try {
-          const data = await AllReqs(); // Aguarda a resolução da função
-          // console.log('Dados recebidos:', data); // Aqui você acessa o corpo da resposta
-        } catch (error) {
-          // console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
-          // handleAxiosError(error);
-        }
-      };
+      // setTimeout(() => {
+      //   console.log('Foram 5 Minutos');
+      //   fetchData();
+      // }, 300000);
       fetchData();
     });
   })
