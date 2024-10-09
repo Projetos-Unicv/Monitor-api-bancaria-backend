@@ -26,10 +26,10 @@ AppDataSource.initialize()
       const fetchData = async () => {
         try {
           const data = await AllReqs(); // Aguarda a resolução da função
-          console.log('Dados recebidos:', data); // Aqui você acessa o corpo da resposta
+          // console.log('Dados recebidos:', data); // Aqui você acessa o corpo da resposta
         } catch (error) {
-          console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
-          handleAxiosError(error);
+          // console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
+          // handleAxiosError(error);
         }
       };
       fetchData();

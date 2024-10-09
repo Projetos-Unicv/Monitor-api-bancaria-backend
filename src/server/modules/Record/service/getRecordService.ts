@@ -1,6 +1,6 @@
 import { Record } from '../../../shared/database/entities/Record';
 import { RecordRepository } from '../repository/RecordRepository';
-import { GetBankService } from '../../Bank/service/getBankService';
+import { getBankByNameService } from '../../Bank/service/getBankByNameService';
 import { FilterTimes } from '../enums/FilterTimes';
 import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
 import { recordInterface } from '../../../shared/interfaces/record-Interface';
@@ -13,7 +13,7 @@ export class GetRecordsService {
     filter: FilterTimes | undefined,
     status: StateType | undefined
   ) {
-    const servicebank = new GetBankService();
+    const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
     console.log(status);
@@ -34,7 +34,7 @@ export class GetRecordsService {
     if (status === undefined) {
       result = await RecordRepository.ListRecords(Idbank, type, limit);
     } else {
-      result = await RecordRepository.listRecordsByStatus(
+      result = await RecordRepository.ListRecordsByStatus(
         Idbank,
         type,
         limit,

@@ -12,7 +12,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
       .take(limit) // Limita a quantidade de registros
       .getMany(); // Retorna uma lista de registros
   },
-  listRecordsByStatus(
+  ListRecordsByStatus(
     bankId: number,
     type: string,
     limit: number,
@@ -27,7 +27,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .getMany(); // Retorna uma lista de registros
     }
   },
-  createRecord(
+  CreateRecord(
     type: TypeRequest,
     CodeResponse: string,
     status: StateType,
@@ -35,13 +35,17 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     payload: object,
     bankId: Bank
   ) {
-    return this.createQueryBuilder('records').insert().into(Record).values({
-      type: type,
-      codeResponse: CodeResponse,
-      status: status,
-      timeRequest: timeRequest,
-      payloadResponse: payload,
-      bank: bankId,
-    });
+    return this.createQueryBuilder('records')
+      .insert()
+      .into(Record)
+      .values({
+        type: type,
+        codeResponse: CodeResponse,
+        status: status,
+        timeRequest: timeRequest,
+        payloadResponse: payload,
+        bank: bankId,
+      })
+      .execute();
   },
 });

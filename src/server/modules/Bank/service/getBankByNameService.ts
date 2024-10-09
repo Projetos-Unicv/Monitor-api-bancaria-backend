@@ -1,7 +1,8 @@
 import { BankRepository } from '../repository/BankRespository';
 import AppError from '../../../shared/errors/AppError';
 import { Bank } from '../../../shared/database/entities/Bank';
-export class GetBankService {
+
+export class getBankByNameService {
   async execute(bank: string): Promise<Bank> {
     const result = await BankRepository.ListBankByName(bank);
     if (!result) {

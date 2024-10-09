@@ -7,4 +7,11 @@ export const BankRepository = AppDataSource.getRepository(Bank).extend({
       .where('banks.name =:bank', { bank })
       .getOne();
   },
+  findBankBycode(bankCode: number) {
+    return this.createQueryBuilder('banks')
+      .where('banks.bankCode =:bankCode', {
+        bankCode,
+      })
+      .getOne();
+  },
 });
