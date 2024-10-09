@@ -4,6 +4,8 @@ import './server/shared/services/Translations'; // Importando tradução dos err
 import { router } from './server/shared/http/routes';
 import { AppDataSource } from './data-source';
 import cors from 'cors';
+import { AllReqs } from './server/api/AllRequest';
+import { handleAxiosError } from './server/shared/errors/ErrorAxios';
 // Inicializando o banco de dados
 AppDataSource.initialize()
   .then(() => {
@@ -20,6 +22,17 @@ AppDataSource.initialize()
       console.log(' ');
       console.log('************************');
       console.log(`Servidor rodando na porta ${port}`);
+
+      const fetchData = async () => {
+        try {
+          const data = await AllReqs(); // Aguarda a resolução da função
+          console.log('Dados recebidos:', data); // Aqui você acessa o corpo da resposta
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
+          handleAxiosError(error);
+        }
+      };
+      fetchData();
     });
   })
   .catch((error) => {
