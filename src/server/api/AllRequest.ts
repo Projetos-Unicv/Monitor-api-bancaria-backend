@@ -8,10 +8,10 @@ export const AllReqs = async () => {
   const cedente: CedenteInterface = await convert_Env(process.env.CONTA_BB);
   console.log(cedente);
   try {
-    const data = await RegistroBoleto(cedente); // Chamada assíncrona
+    const data = await RegistroBoleto(cedente, 'v1'); // Chamada assíncrona
 
     const tempReq = Number(data.TempoReq); // Tempo da requisição
-    var type: TypeRequest = TypeRequest.REGISTRO; //tipo do api  do boleto
+    const type: TypeRequest = TypeRequest.REGISTRO; //tipo do api  do boleto
     const codeResponse = data.codeResponse.toString(); // Código de resposta
     const payload = data.details; // Payload da resposta
 
