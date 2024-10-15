@@ -5,4 +5,5 @@ export interface CedenteInterface {
   CEDENTE_CONVENIO_NUMERO: string;
   CEDENTE_CONTA_CODIGO_BANCO: string;
   ID_INTEGRACAO: string;
+  VERSAO: string;
 }

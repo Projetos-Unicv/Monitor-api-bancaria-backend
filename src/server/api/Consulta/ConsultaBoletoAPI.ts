@@ -10,15 +10,13 @@ interface AxiosError {
 }
 
 export const ConsultaBoleto = async (
-  cedente: CedenteInterface,
-  version: string
+  cedente: CedenteInterface
 ): Promise<ApiBodyInterface> => {
   const start = performance.now(); // Captura o tempo inicial
   const ID_INTEGRACAO = cedente.ID_INTEGRACAO;
+  // const version = cedente.VERSAO;
   try {
-    const response = await api.get(
-      `/${version}/boletos?idintegracao=${ID_INTEGRACAO}`
-    );
+    const response = await api.get(`/v1/boletos?idintegracao=${ID_INTEGRACAO}`);
     const end = performance.now(); // Captura o tempo final
     const ReqTime = (end - start).toFixed();
     const payload = response.data;

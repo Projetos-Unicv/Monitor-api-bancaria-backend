@@ -15,8 +15,8 @@ export const ReqAll = async (Env_list: string[]) => {
     console.log('testee', cedente);
     try {
       const ServiceRegister = new createRecordsService();
-      const resultRegister = await RegistroBoleto(cedente, 'v1');
-      const resultConsult = await ConsultaBoleto(cedente, 'v1');
+      const resultRegister = await RegistroBoleto(cedente);
+      const resultConsult = await ConsultaBoleto(cedente);
       console.log(
         `Registro feito para o banco: ${cedente.NOME_BANCO}`,
         resultRegister

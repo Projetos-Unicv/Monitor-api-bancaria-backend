@@ -11,8 +11,7 @@ interface AxiosError {
 }
 
 export const RegistroBoleto = async (
-  cedente: CedenteInterface,
-  version: string
+  cedente: CedenteInterface
 ): Promise<ApiBodyInterface> => {
   let tete = {
     CedenteContaNumero: `${cedente.CEDENTE_CONTA_NUMERO}`,
@@ -20,15 +19,14 @@ export const RegistroBoleto = async (
     CedenteConvenioNumero: `${cedente.CEDENTE_CONVENIO_NUMERO}`,
     CedenteContaCodigoBanco: `${cedente.CEDENTE_CONTA_CODIGO_BANCO}`,
   };
-
+  const start = performance.now(); // Captura o tempo inicial
   const requestBody = {
     ...BodyDefault, // Presumindo que BodyDefault esteja definido em outro lugar
     ...tete, // Adiciona tete ao requestBody
   };
-  const start = performance.now(); // Captura o tempo inicial
 
   try {
-    const response = await api.post(`/${version}/boletos`, requestBody);
+    const response = await api.post(`/v1/boletos`, requestBody);
     const end = performance.now(); // Captura o tempo final
     const ReqTime = (end - start).toFixed();
     const payload = response.data;
