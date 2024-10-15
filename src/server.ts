@@ -35,7 +35,7 @@ AppDataSource.initialize()
       //   console.log('Foram 5 Minutos');
       //   fetchData();
       // }, 300000);
-      fetchData(lista);
+      // fetchData(lista);
     });
   })
   .catch((error) => {
