@@ -4,17 +4,18 @@ import './server/shared/services/Translations'; // Importando tradução dos err
 import { router } from './server/shared/http/routes';
 import { AppDataSource } from './data-source';
 import cors from 'cors';
-import { AllReqs } from './server/api/AllRequest';
 import { handleAxiosError } from './server/shared/errors/ErrorAxios';
+import { ReqAll } from './server/api/RequestAll';
 // Inicializando o banco de dados
-const fetchData = async () => {
+const fetchData = async (list: string[]) => {
   try {
-    await AllReqs(); // Aguarda a resolução da função
+    await ReqAll(list); // Aguarda a resolução da função
   } catch (error) {
     console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
     handleAxiosError(error);
   }
 };
+const lista = ['CONTA_BB'];
 AppDataSource.initialize()
   .then(() => {
     // Se a conexão for bem-sucedida, inicializa o servidor
@@ -34,7 +35,7 @@ AppDataSource.initialize()
       //   console.log('Foram 5 Minutos');
       //   fetchData();
       // }, 300000);
-      // fetchData();
+      fetchData(lista);
     });
   })
   .catch((error) => {

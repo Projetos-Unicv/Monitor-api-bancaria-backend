@@ -48,16 +48,16 @@ export const RegistroBoleto = async (
       if ([400, 401, 403, 422].includes(status)) {
         const end = performance.now();
         const ReqTime = (end - start).toFixed();
-        console.log(axiosError);
+        // console.log(axiosError);
 
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'registro',
           codeResponse: status,
           message: `${status}: requisição feita, api online.`,
-          details: data,
+          payload: data,
         };
-        console.warn(errorResponse.message, errorResponse.details);
+        console.warn(errorResponse.message, errorResponse.payload);
 
         return errorResponse;
       } else if ([500, 504].includes(status)) {
@@ -70,9 +70,9 @@ export const RegistroBoleto = async (
           type: 'registro',
           codeResponse: status,
           message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
-          details: data,
+          payload: data,
         };
-        console.warn(errorResponse.message, errorResponse.details);
+        console.warn(errorResponse.message, errorResponse.payload);
 
         return errorResponse;
       }
