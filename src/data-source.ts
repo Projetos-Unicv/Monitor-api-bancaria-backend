@@ -17,7 +17,7 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.DB_NAME,
   synchronize: false, // Desative synchronize para gerar migrações corretamente
   entities: [Bank, Record],
-  migrations: [`${dirname}/server/shared/database/migrations/*.{ts,js}`],
+  migrations: [`${__dirname}/server/shared/database/migrations/*.{ts,js}`],
   migrationsTableName: 'Migrations',
   seeds: [ScriptSeeder],
 };
