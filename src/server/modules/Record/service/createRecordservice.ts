@@ -34,6 +34,5 @@ export class createRecordsService {
       payload,
       bank
     );
-    console.log(tete);
   }
 }

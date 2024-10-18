@@ -55,7 +55,7 @@ export const RegistroBoleto = async (
           message: `${status}: requisição feita, api online.`,
           payload: data,
         };
-        console.warn(errorResponse.message, errorResponse.payload);
+        // console.warn(errorResponse.message, errorResponse.payload);
 
         return errorResponse;
       } else if ([500, 504].includes(status)) {

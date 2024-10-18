@@ -15,7 +15,15 @@ const fetchData = async (list: string[]) => {
     handleAxiosError(error);
   }
 };
-const lista = ['CONTA_BB'];
+const lista = [
+  'CONTA_BB',
+  'CONTA_SANTANDER',
+  'CONTA_BANRISUL',
+  'CONTA_CAIXA',
+  'CONTA_SICOOB',
+  'CONTA_SICREDI_V2',
+  'CONTA_SICREDI_V3',
+];
 AppDataSource.initialize()
   .then(() => {
     // Se a conexão for bem-sucedida, inicializa o servidor
@@ -35,7 +43,8 @@ AppDataSource.initialize()
       //   console.log('Foram 5 Minutos');
       //   fetchData();
       // }, 300000);
-      // fetchData(lista);
+
+      fetchData(lista);
     });
   })
   .catch((error) => {

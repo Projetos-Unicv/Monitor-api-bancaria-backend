@@ -7,24 +7,25 @@ import { ConvertCedenteForRecord } from './service/ConvertCedenteforObject';
 
 export const ReqAll = async (Env_list: string[]) => {
   let i = 0;
+  let erro = 0;
   while (i < Env_list.length) {
     const nameBank = Env_list[i];
     const dotenv = process.env[`${nameBank}`];
     const cedente: CedenteInterface = await convert_Env(dotenv);
 
-    console.log('testee', cedente);
+    // console.log('testee', cedente);
     try {
       const ServiceRegister = new createRecordsService();
       const resultRegister = await RegistroBoleto(cedente);
       const resultConsult = await ConsultaBoleto(cedente);
-      console.log(
-        `Registro feito para o banco: ${cedente.NOME_BANCO}`,
-        resultRegister
-      );
-      console.log(
-        `Consulta feito para o banco: ${cedente.NOME_BANCO}`,
-        resultConsult
-      );
+      // console.log(
+      //   `Registro feito para o banco: ${cedente.NOME_BANCO}`,
+      //   resultRegister
+      // );
+      // console.log(
+      //   `Consulta feito para o banco: ${cedente.NOME_BANCO}`,
+      //   resultConsult
+      // );
       const registro = await ConvertCedenteForRecord(
         resultRegister,
         cedente.NOME_BANCO
@@ -40,8 +41,13 @@ export const ReqAll = async (Env_list: string[]) => {
         `Erro ao registrar boleto para o banco: ${cedente.NOME_BANCO}`,
         error
       );
+      erro++;
     }
     i++;
   }
-  console.log(`${i} Bancos verificados!`);
+  console.log('');
+  console.log('************************');
+  console.log('');
+  console.log(`${i} requisições verificados com sucesso!`);
+  console.log(`${erro} Requsições com erro!`);
 };

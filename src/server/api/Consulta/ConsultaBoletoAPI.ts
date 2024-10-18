@@ -46,7 +46,7 @@ export const ConsultaBoleto = async (
           message: `${status}: requisição feita, api online.`,
           details: data,
         };
-        console.warn(errorResponse.message, errorResponse.details);
+        // console.warn(errorResponse.message, errorResponse.details);
 
         return errorResponse;
       } else if ([500, 504].includes(status)) {
