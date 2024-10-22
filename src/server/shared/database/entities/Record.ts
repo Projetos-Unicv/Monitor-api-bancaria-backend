@@ -36,4 +36,7 @@ export class Record implements recordInterface {
 
   @Column({ type: 'jsonb' })
   payloadResponse: object;
+
+  @Column({ type: 'varchar', length: 50 })
+  detailing: string;
 }
