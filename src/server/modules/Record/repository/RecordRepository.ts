@@ -33,7 +33,8 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     status: StateType,
     timeRequest: number,
     payload: object,
-    bankId: Bank
+    bankId: Bank,
+    detailing: string
   ) {
     return this.createQueryBuilder('records')
       .insert()
@@ -45,6 +46,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         timeRequest: timeRequest,
         payloadResponse: payload,
         bank: bankId,
+        detailing,
       })
       .execute();
   },

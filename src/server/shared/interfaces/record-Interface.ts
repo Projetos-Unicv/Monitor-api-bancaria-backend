@@ -9,4 +9,5 @@ export interface recordInterface {
   status: string;
   timeRequest: number;
   payloadResponse: object;
+  detailing: string;
 }
