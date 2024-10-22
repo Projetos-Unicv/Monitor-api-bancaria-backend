@@ -18,14 +18,7 @@ export const ReqAll = async (Env_list: string[]) => {
       const ServiceRegister = new createRecordsService();
       const resultRegister = await RegistroBoleto(cedente);
       const resultConsult = await ConsultaBoleto(cedente);
-      // console.log(
-      //   `Registro feito para o banco: ${cedente.NOME_BANCO}`,
-      //   resultRegister
-      // );
-      // console.log(
-      //   `Consulta feito para o banco: ${cedente.NOME_BANCO}`,
-      //   resultConsult
-      // );
+
       const registro = await ConvertCedenteForRecord(
         resultRegister,
         cedente.NOME_BANCO
@@ -34,8 +27,8 @@ export const ReqAll = async (Env_list: string[]) => {
         resultConsult,
         cedente.NOME_BANCO
       );
-      ServiceRegister.execute(registro);
-      ServiceRegister.execute(consulta);
+      ServiceRegister.execute(registro, cedente.NOME_BANCO);
+      ServiceRegister.execute(consulta, cedente.NOME_BANCO);
     } catch (error) {
       console.error(
         `Erro ao registrar boleto para o banco: ${cedente.NOME_BANCO}`,
