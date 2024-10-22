@@ -6,4 +6,5 @@ export interface ICreateRecord {
   codeResponse: string;
   payload: object;
   bancoCode: number;
+  detailing?: string;
 }
