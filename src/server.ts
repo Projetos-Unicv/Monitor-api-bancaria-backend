@@ -20,9 +20,12 @@ const lista = [
   'CONTA_SANTANDER',
   'CONTA_BANRISUL',
   'CONTA_CAIXA',
+  'CONTA_ITAU_V2',
+  'CONTA_ITAU_FRANCESA',
   'CONTA_SICOOB',
   'CONTA_SICREDI_V2',
   'CONTA_SICREDI_V3',
+  'CONTA_INTER',
 ];
 AppDataSource.initialize()
   .then(() => {
