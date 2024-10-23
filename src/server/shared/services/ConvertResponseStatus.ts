@@ -5,11 +5,11 @@ export const ConvertResponseStatus = async (
   status: string
 ): Promise<string> => {
   if (status == 'ativo') {
-    if (responseTime < 200) {
+    if (responseTime < 2000) {
       return responseStatusType.Normal; // Resposta normal
-    } else if (responseTime >= 200 && responseTime < 500) {
+    } else if (responseTime >= 2000 && responseTime < 5000) {
       return responseStatusType.Lenta; // Resposta lenta
-    } else if (responseTime >= 500 && responseTime < 1000) {
+    } else if (responseTime >= 5000 && responseTime < 30000) {
       return responseStatusType.MuitoLenta; // Resposta um muito lenta
     } else {
       return responseStatusType.Timeout; // Excedeu o tempo limite
