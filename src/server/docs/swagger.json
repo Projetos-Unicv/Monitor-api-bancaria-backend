@@ -1,1 +1,120 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Consulta API",
+    "version": "1.0.0",
+    "description": "API para consulta de registros de boletos"
+  },
+  "paths": {
+    "/boletos/{type}/{bank}": {
+      "get": {
+        "summary": "Consultar registros de boletos",
+        "description": "Retorna registros de boletos filtrados por tipo e banco, podendo aplicar filtros opcionais de tempo e status.",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "description": "Tipo de requisição (valores do enum TypeRequest)",
+            "schema": {
+              "type": "string",
+              "enum": ["consulta", "registro"] // Substitua pelos valores reais de TypeRequest
+            }
+          },
+          {
+            "name": "bank",
+            "in": "path",
+            "required": true,
+            "description": "Código do banco (valores do enum bankOptions)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BANCODOBRASIL_V2",
+                "SANTANDER",
+                "BANRISUL",
+                "INTER",
+                "CAIXA",
+                "ITAU_V2",
+                "ITAU_FRANCESA",
+                "SICREDI_V2",
+                "SICREDI_V3",
+                "SICOOB_V2"
+              ] // Substitua pelos valores reais de bankOptions
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "description": "Filtro de tempo (valores do enum FilterTimes)",
+            "schema": {
+              "type": "string",
+              "enum": ["DAY", "WEEK", "MOUTH"] // Substitua pelos valores reais de FilterTimes
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Estado do boleto (valores do enum StateType)",
+            "schema": {
+              "type": "string",
+              "enum": ["inativo", "ativo"] // Substitua pelos valores reais de StateType
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de registros de boletos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoletoRecord"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação nos parâmetros fornecidos"
+          },
+          "500": {
+            "description": "Erro inesperado ao processar a solicitação"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BoletoRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID do registro do boleto"
+          },
+          "bank": {
+            "type": "string",
+            "description": "Código do banco"
+          },
+          "type": {
+            "type": "string",
+            "description": "Tipo de requisição"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status do boleto"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data do registro"
+          }
+        }
+      }
+    }
+  }
+}
