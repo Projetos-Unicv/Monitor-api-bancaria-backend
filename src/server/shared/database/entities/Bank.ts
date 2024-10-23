@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { bankInterface } from '../../interfaces/bank-Interface';
 import { Record } from './Record';
@@ -7,6 +13,8 @@ import { Record } from './Record';
 export class Bank implements bankInterface {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Index('name-idx')
   @Column({ type: 'text' })
   name: string;
   @Column({ type: 'int' })

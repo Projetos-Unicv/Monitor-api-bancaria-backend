@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 
 import { recordInterface } from '../../interfaces/record-Interface';
@@ -15,12 +16,14 @@ export class Record implements recordInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index('Type-idx')
   @Column({ type: 'varchar', length: 50, nullable: false })
   type: string;
 
   @Column({ type: 'int', nullable: false })
   codeResponse: string;
 
+  @Index('Bank-idx')
   @ManyToOne(() => Bank, (bank) => bank.records, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'bankId' })
   bank: Bank;
@@ -28,6 +31,7 @@ export class Record implements recordInterface {
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   dateCreated: Date;
 
+  @Index('status-idx')
   @Column({ type: 'varchar', length: 10, nullable: false })
   status: string;
 
