@@ -41,6 +41,6 @@ export const ReqAll = async (Env_list: string[]) => {
   console.log('');
   console.log('************************');
   console.log('');
-  console.log(`${i} requisições verificados com sucesso!`);
-  console.log(`${erro} Requsições com erro!`);
+  console.log(`${i} Bancos verificados com sucesso!`);
+  console.log(`${erro} Bancos com erro!`);
 };
