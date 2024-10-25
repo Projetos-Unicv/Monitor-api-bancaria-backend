@@ -1,7 +1,7 @@
 export enum responseStatusType {
   Normal = 'Normal',
-  Lenta = 'Lenda',
-  MuitoLenta = 'Muito Lenta',
+  Lenta = 'Lenta',
+  MuitoLenta = 'MuitoLenta',
   Timeout = 'Timeout',
   Erro = 'Erro',
 }
