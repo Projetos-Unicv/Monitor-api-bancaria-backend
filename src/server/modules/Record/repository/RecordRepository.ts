@@ -5,10 +5,19 @@ import { StateType } from '../enums/StateType';
 import { Bank } from '../../../shared/database/entities/Bank';
 
 export const RecordRepository = AppDataSource.getRepository(Record).extend({
-  ListRecords(codeBank: number, type: string, limit: number) {
+  ListRecords(bankId: number, type: string, limit: number) {
+    if (limit === 1) {
+      console.log('veio aqui');
+      return this.createQueryBuilder('records')
+        .where('records.type = :type', { type })
+        .andWhere('records.bankId = :bankId', { bankId })
+        .orderBy('records.dateCreated', 'DESC') // Ordena de mais recente para mais antigo
+        .take(1) // Limita a 1 registro
+        .getMany(); // Retorna apenas o primeiro (último criado)
+    }
     return this.createQueryBuilder('records')
       .where('records.type = :type', { type })
-      .andWhere('records.bankId =:codeBank', { codeBank })
+      .andWhere('records.bankId =:bankId', { bankId })
       .take(limit) // Limita a quantidade de registros
       .getMany(); // Retorna uma lista de registros
   },
@@ -19,6 +28,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     status: string
   ) {
     {
+      console.log('veio aqui: ', limit);
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
