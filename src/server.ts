@@ -7,14 +7,6 @@ import cors from 'cors';
 import { handleAxiosError } from './server/shared/errors/ErrorAxios';
 import { ReqAll } from './server/api/RequestAll';
 // Inicializando o banco de dados
-const fetchData = async (list: string[]) => {
-  try {
-    await ReqAll(list); // Aguarda a resolução da função
-  } catch (error) {
-    console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
-    handleAxiosError(error);
-  }
-};
 const lista = [
   'CONTA_BB',
   'CONTA_SANTANDER',
@@ -27,6 +19,15 @@ const lista = [
   'CONTA_SICREDI_V3',
   'CONTA_INTER',
 ];
+const fetchData = async () => {
+  try {
+    await ReqAll(lista); // Aguarda a resolução da função
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error); // Captura e exibe erros se ocorrerem
+    handleAxiosError(error);
+  }
+};
+
 AppDataSource.initialize()
   .then(() => {
     // Se a conexão for bem-sucedida, inicializa o servidor
@@ -42,12 +43,8 @@ AppDataSource.initialize()
       console.log(' ');
       console.log('************************');
       console.log(`Servidor rodando na porta ${port}`);
-      // setTimeout(() => {
-      //   console.log('Foram 5 Minutos');
-      //   fetchData();
-      // }, 300000);
-
-      fetchData(lista);
+      fetchData();
+      setInterval(fetchData, 300000);
     });
   })
   .catch((error) => {
