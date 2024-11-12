@@ -19,14 +19,17 @@ export class GetRecordsService {
 
     // Definindo o limite com base no filtro
     let limit = 0;
+    console.log(filter);
     if (filter === 'DAY') {
       limit = 288;
     } else if (filter === 'WEEK') {
       limit = 2016;
+    } else if (filter === 'LAST') {
+      limit = 1;
     } else {
       limit = 8640;
     }
-
+    console.log('Limit dentro do service: ', limit);
     let result;
 
     // Verifica se o status é indefinido e chama a função adequada
@@ -42,7 +45,7 @@ export class GetRecordsService {
     }
 
     // Verifica se result existe e contém pelo menos um registro
-    if (result && result.length > 0) {
+    if (Array.isArray(result) && result.length > 0) {
       // Formata o campo dateCreated de cada registro
       const registrosFormatados = result.map((record: any) => ({
         ...record,
