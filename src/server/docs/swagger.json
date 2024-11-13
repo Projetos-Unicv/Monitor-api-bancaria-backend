@@ -15,17 +15,17 @@
             "name": "type",
             "in": "path",
             "required": true,
-            "description": "Tipo de requisição (valores do enum TypeRequest)",
+            "description": "Tipo de requisição",
             "schema": {
               "type": "string",
-              "enum": ["consulta", "registro"] // Substitua pelos valores reais de TypeRequest
+              "enum": ["consulta", "registro"]
             }
           },
           {
             "name": "bank",
             "in": "path",
             "required": true,
-            "description": "Código do banco (valores do enum bankOptions)",
+            "description": "Código do banco ",
             "schema": {
               "type": "string",
               "enum": [
@@ -39,27 +39,27 @@
                 "SICREDI_V2",
                 "SICREDI_V3",
                 "SICOOB_V2"
-              ] // Substitua pelos valores reais de bankOptions
+              ]
             }
           },
           {
             "name": "filter",
             "in": "query",
             "required": false,
-            "description": "Filtro de tempo (valores do enum FilterTimes)",
+            "description": "Filtro de tempo",
             "schema": {
               "type": "string",
-              "enum": ["DAY", "WEEK", "MOUTH"] // Substitua pelos valores reais de FilterTimes
+              "enum": ["DAY", "WEEK", "MOUTH"]
             }
           },
           {
             "name": "status",
             "in": "query",
             "required": false,
-            "description": "Estado do boleto (valores do enum StateType)",
+            "description": "Estado do boleto",
             "schema": {
               "type": "string",
-              "enum": ["inativo", "ativo"] // Substitua pelos valores reais de StateType
+              "enum": ["inativo", "ativo"]
             }
           }
         ],
