@@ -9,23 +9,12 @@ services:
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: 'monitor-web'
     ports:
-<<<<<<< HEAD
-      - "5432:5432"
-    volumes:
-          - pgdata:/var/lib/postgresql/data
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  pgdata:
-    
-=======
       - '5432:5432'
 #Descomente a baixo para persistir dados
->>>>>>> 7f08e4e (:construction: docker: retirando permanencia de dados)
 
 #     volumes:
 #           - pgdata:/var/lib/postgresql/data
 
 # volumes:
-#   pgdata:
+# pgdata:
+.
