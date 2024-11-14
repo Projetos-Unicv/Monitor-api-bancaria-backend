@@ -10,8 +10,8 @@ export class GetRecordsService {
   async execute(
     bank: string,
     type: string,
-    filter: FilterTimes | undefined,
-    status: StateType | undefined
+    filter?: FilterTimes | undefined,
+    status?: StateType | undefined
   ) {
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);

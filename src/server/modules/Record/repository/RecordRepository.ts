@@ -7,7 +7,6 @@ import { Bank } from '../../../shared/database/entities/Bank';
 export const RecordRepository = AppDataSource.getRepository(Record).extend({
   ListRecords(bankId: number, type: string, limit: number) {
     if (limit === 1) {
-      console.log('veio aqui');
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
@@ -27,8 +26,16 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     limit: number,
     status: string
   ) {
+    if (limit === 1) {
+      return this.createQueryBuilder('records')
+        .where('records.type = :type', { type })
+        .andWhere('records.bankId = :bankId', { bankId })
+        .andWhere('records.status = :status', { status })
+        .orderBy('records.dateCreated', 'DESC') // Ordena de mais recente para mais antigo
+        .take(limit)
+        .getMany();
+    }
     {
-      console.log('veio aqui: ', limit);
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
