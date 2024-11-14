@@ -46,7 +46,6 @@ export const RegistroBoleto = async (
       if ([400, 401, 403, 422].includes(status)) {
         const end = performance.now();
         const ReqTime = (end - start).toFixed();
-        // console.log(axiosError);
 
         const errorResponse = {
           TempoReq: ReqTime,

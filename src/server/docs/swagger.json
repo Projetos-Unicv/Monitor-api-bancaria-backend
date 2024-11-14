@@ -49,7 +49,7 @@
             "description": "Filtro de tempo",
             "schema": {
               "type": "string",
-              "enum": ["DAY", "WEEK", "MOUTH"]
+              "enum": ["DAY", "WEEK", "MOUTH", "LAST"]
             }
           },
           {
@@ -93,25 +93,40 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
+            "type": "number",
             "description": "ID do registro do boleto"
-          },
-          "bank": {
-            "type": "string",
-            "description": "Código do banco"
           },
           "type": {
             "type": "string",
             "description": "Tipo de requisição"
           },
+          "codeResponse": {
+            "type": "number",
+            "description": "Código do status da requisição"
+          },
+          "dateCreated": {
+            "type": "string",
+            "description": "Data de criação da requisição"
+          },
           "status": {
             "type": "string",
-            "description": "Status do boleto"
+            "description": "Status da requisição"
           },
-          "date": {
+          "timeRequest": {
+            "type": "number",
+            "description": "tempo de Resposta da requisição"
+          },
+          "PayloadResponse": {
+            "type": "object",
+            "description": "Corpo da resposta da requisição"
+          },
+          "detailing": {
             "type": "string",
-            "format": "date-time",
-            "description": "Data do registro"
+            "description": "Detalhamento da resposta da requisiçaõ"
+          },
+          "ResponseStatus": {
+            "type": "string",
+            "description": "Detalhamento do tempo de resposta"
           }
         }
       }

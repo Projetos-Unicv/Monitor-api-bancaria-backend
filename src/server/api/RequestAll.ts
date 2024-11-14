@@ -13,7 +13,6 @@ export const ReqAll = async (Env_list: string[]) => {
     const dotenv = process.env[`${nameBank}`];
     const cedente: CedenteInterface = await convert_Env(dotenv);
 
-    // console.log('testee', cedente);
     try {
       const ServiceRegister = new createRecordsService();
       const resultRegister = await RegistroBoleto(cedente);

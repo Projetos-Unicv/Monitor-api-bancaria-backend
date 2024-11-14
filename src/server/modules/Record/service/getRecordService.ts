@@ -19,7 +19,6 @@ export class GetRecordsService {
 
     // Definindo o limite com base no filtro
     let limit = 0;
-    console.log(filter);
     if (filter === 'DAY') {
       limit = 288;
     } else if (filter === 'WEEK') {
@@ -29,7 +28,6 @@ export class GetRecordsService {
     } else {
       limit = 8640;
     }
-    console.log('Limit dentro do service: ', limit);
     let result;
 
     // Verifica se o status é indefinido e chama a função adequada
