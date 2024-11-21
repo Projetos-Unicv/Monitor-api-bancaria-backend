@@ -42,12 +42,24 @@ export class GetRecordsService {
       );
     }
 
+    const arrayRenomeado = result.map((item) => ({
+      Tipo: item.type,
+      CodigoDaResposta: item.codeResponse,
+      Banco: item.bank,
+      HoraDaConsulta: item.dateCreated,
+      status: item.status,
+      TempoDeResposta: item.timeRequest,
+      payloadResponse: item.payloadResponse,
+      Detalhamento: item.detailing,
+      StatusDaResposta: item.responseStatus,
+    }));
+
     // Verifica se result existe e contém pelo menos um registro
     if (Array.isArray(result) && result.length > 0) {
       // Formata o campo dateCreated de cada registro
-      const registrosFormatados = result.map((record: any) => ({
+      const registrosFormatados = arrayRenomeado.map((record: any) => ({
         ...record,
-        dateCreated: formatarDataParaBrasil(new Date(record.dateCreated)),
+        HoraDaConsulta: formatarDataParaBrasil(new Date(record.HoraDaConsulta)),
       }));
       return registrosFormatados;
     }
