@@ -48,7 +48,7 @@ export class GetRecordsService {
       Banco: item.bank,
       HoraDaConsulta: item.dateCreated,
       status: item.status,
-      TempoDeResposta: item.timeRequest,
+      TempoDeResposta: `${item.timeRequest} Milissegundos`,
       payloadResponse: item.payloadResponse,
       Detalhamento: item.detailing,
       StatusDaResposta: item.responseStatus,
