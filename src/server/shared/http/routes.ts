@@ -26,5 +26,4 @@ router.get('/', (_, res) => {
   return res.send('Olá, dev!');
 });
 
-// router.use("/registro", registroRouter);
 router.use('/', consultaRouter);

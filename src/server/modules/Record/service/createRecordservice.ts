@@ -17,7 +17,7 @@ export class createRecordsService {
     const repo = RecordRepository;
 
     //Parametroas
-    const bancoCode = info.bancoCode;
+    // const bancoCode = info.bancoCode;
     const codeResponse = info.codeResponse;
     const type = info.type;
     const timeReq = info.timeReq;

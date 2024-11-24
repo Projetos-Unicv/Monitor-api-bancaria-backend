@@ -17,6 +17,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     return this.createQueryBuilder('records')
       .where('records.type = :type', { type })
       .andWhere('records.bankId =:bankId', { bankId })
+      .orderBy('records.dateCreated', 'ASC') // Ordena de mais antigo para mais novo
       .take(limit) // Limita a quantidade de registros
       .getMany(); // Retorna uma lista de registros
   },
@@ -40,6 +41,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
         .andWhere('records.status = :status', { status })
+        .orderBy('records.dateCreated', 'ASC') // Ordena de mais antigo para mais novo
         .take(limit) // Limita a quantidade de registros
         .getMany(); // Retorna uma lista de registros
     }
