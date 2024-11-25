@@ -9,18 +9,7 @@ import { ReqAll } from './server/api/RequestAll'; // função que percorre lista
 
 // Inicializando o banco de dados
 // Lista de bancos para percorrer no back-end
-const lista = [
-  'CONTA_BB',
-  'CONTA_SANTANDER',
-  'CONTA_BANRISUL',
-  'CONTA_CAIXA',
-  'CONTA_ITAU_V2',
-  'CONTA_ITAU_FRANCESA',
-  'CONTA_SICOOB',
-  'CONTA_SICREDI_V2',
-  'CONTA_SICREDI_V3',
-  'CONTA_INTER',
-];
+const lista: string[] = process.env.Lista_Bancos?.split(',') || [];
 const fetchData = async () => {
   try {
     await ReqAll(lista); // Aguarda a resolução da função
