@@ -6,15 +6,13 @@ services:
     restart: always
     environment:
       POSTGRES_USER: 'docker'
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_PASSWORD: '123456'
       POSTGRES_DB: 'monitor-web'
     ports:
       - '5432:5432'
-#Descomente a baixo para persistir dados
-
-#     volumes:
-#           - pgdata:/var/lib/postgresql/data
+# Descomente a linha abaixo para persistir dados
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
 
 # volumes:
-# pgdata:
-.
+#   pgdata:
