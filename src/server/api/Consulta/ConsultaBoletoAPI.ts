@@ -63,6 +63,20 @@ export const ConsultaBoleto = async (
         console.warn(errorResponse.message, errorResponse.details);
 
         return errorResponse;
+      } else {
+        const end = performance.now();
+        const ReqTime = (end - start).toFixed();
+
+        const errorResponse = {
+          TempoReq: ReqTime,
+          type: 'consulta',
+          codeResponse: status,
+          message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
+          details: data,
+        };
+        console.warn(errorResponse.message, errorResponse.details);
+
+        return errorResponse;
       }
     }
 

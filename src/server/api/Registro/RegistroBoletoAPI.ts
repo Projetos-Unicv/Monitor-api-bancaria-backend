@@ -13,7 +13,7 @@ interface AxiosError {
 export const RegistroBoleto = async (
   cedente: CedenteInterface
 ): Promise<ApiBodyInterface> => {
-  let tete = {
+  let DadosCedentes = {
     CedenteContaNumero: `${cedente.CEDENTE_CONTA_NUMERO}`,
     CedenteContaNumeroDV: `${cedente.CEDENTE_CONTA_NUMERO_DV}`,
     CedenteConvenioNumero: `${cedente.CEDENTE_CONVENIO_NUMERO}`,
@@ -22,7 +22,7 @@ export const RegistroBoleto = async (
   const start = performance.now(); // Captura o tempo inicial
   const requestBody = {
     ...BodyDefault, // Presumindo que BodyDefault esteja definido em outro lugar
-    ...tete, // Adiciona tete ao requestBody
+    ...DadosCedentes, // Adiciona tete ao requestBody
   };
 
   try {
@@ -46,7 +46,6 @@ export const RegistroBoleto = async (
       if ([400, 401, 403, 422].includes(status)) {
         const end = performance.now();
         const ReqTime = (end - start).toFixed();
-        // console.log(axiosError);
 
         const errorResponse = {
           TempoReq: ReqTime,
@@ -59,6 +58,21 @@ export const RegistroBoleto = async (
 
         return errorResponse;
       } else if ([500, 504].includes(status)) {
+        const end = performance.now();
+
+        const ReqTime = (end - start).toFixed();
+
+        const errorResponse = {
+          TempoReq: ReqTime,
+          type: 'registro',
+          codeResponse: status,
+          message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
+          payload: data,
+        };
+        console.warn(errorResponse.message, errorResponse.payload);
+
+        return errorResponse;
+      } else {
         const end = performance.now();
 
         const ReqTime = (end - start).toFixed();

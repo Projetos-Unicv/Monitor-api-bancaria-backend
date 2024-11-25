@@ -10,8 +10,8 @@ export class GetRecordsService {
   async execute(
     bank: string,
     type: string,
-    filter: FilterTimes | undefined,
-    status: StateType | undefined
+    filter?: FilterTimes | undefined,
+    status?: StateType | undefined
   ) {
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
@@ -19,7 +19,6 @@ export class GetRecordsService {
 
     // Definindo o limite com base no filtro
     let limit = 0;
-    console.log(filter);
     if (filter === 'DAY') {
       limit = 288;
     } else if (filter === 'WEEK') {
@@ -29,7 +28,6 @@ export class GetRecordsService {
     } else {
       limit = 8640;
     }
-    console.log('Limit dentro do service: ', limit);
     let result;
 
     // Verifica se o status é indefinido e chama a função adequada
@@ -44,12 +42,24 @@ export class GetRecordsService {
       );
     }
 
+    const arrayRenomeado = result.map((item) => ({
+      Tipo: item.type,
+      CodigoDaResposta: item.codeResponse,
+      Banco: item.bank,
+      HoraDaConsulta: item.dateCreated,
+      status: item.status,
+      TempoDeResposta: `${item.timeRequest} Milissegundos`,
+      payloadResponse: item.payloadResponse,
+      Detalhamento: item.detailing,
+      StatusDaResposta: item.responseStatus,
+    }));
+
     // Verifica se result existe e contém pelo menos um registro
     if (Array.isArray(result) && result.length > 0) {
       // Formata o campo dateCreated de cada registro
-      const registrosFormatados = result.map((record: any) => ({
+      const registrosFormatados = arrayRenomeado.map((record: any) => ({
         ...record,
-        dateCreated: formatarDataParaBrasil(new Date(record.dateCreated)),
+        HoraDaConsulta: formatarDataParaBrasil(new Date(record.HoraDaConsulta)),
       }));
       return registrosFormatados;
     }
