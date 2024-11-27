@@ -23,6 +23,7 @@ CNPJ_CEDENTE=
 CONTENT_TYPE=
 URL_API=
 
+//lista de bancos para ser percorrido pelo back-end
 Lista_Bancos=CONTA_1,CONTA_2,...
 
 ##Banco 
