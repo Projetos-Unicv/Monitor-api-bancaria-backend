@@ -2,6 +2,7 @@ import { runSeeder, Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { Bank } from '../entities/Bank';
 
+// seeds dos bancos para realizar e identidicar as requisições no plugboleto
 export default class BankSeeder implements Seeder {
   track = false;
 

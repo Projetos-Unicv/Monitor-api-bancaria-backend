@@ -1,3 +1,4 @@
+// enums dos códigos dos bancos com base no nome
 export enum Bancos {
   BANCO_DO_BRASIL = 1, // 001 - Banco do Brasil (v2)
   ITAU = 341, // 341 - Itaú (v2 e Francesa)

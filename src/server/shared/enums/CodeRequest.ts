@@ -1,3 +1,4 @@
+// enusm das respostas negativas da requisição do plugboleto
 export enum PositiveCodeRequest {
   SUCESSO = 200, // Sucesso
   REQUISICAO_INCORRETA = 400, // Requisição inválida

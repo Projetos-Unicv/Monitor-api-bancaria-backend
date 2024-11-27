@@ -4,8 +4,9 @@ import {
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
+} from 'typeorm'; // importação de funcionalidades do typeorm
 
+// entidadades para a entidade tipar
 import { bankInterface } from '../../interfaces/bank-Interface';
 import { Record } from './Record';
 

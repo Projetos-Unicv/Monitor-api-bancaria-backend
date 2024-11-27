@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
-} from 'typeorm';
+} from 'typeorm'; // importação de funcionalidades do typeorm
 
 import { recordInterface } from '../../interfaces/record-Interface';
 import { Bank } from './Bank';

@@ -1,3 +1,4 @@
+// construção da class de erro da api
 class AppError {
   public readonly message: string;
   public readonly statusCode: number;

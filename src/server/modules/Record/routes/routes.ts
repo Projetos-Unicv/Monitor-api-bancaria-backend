@@ -6,7 +6,7 @@ consultaRouter.get('/'); // rota padrão
 
 // rota unica e dinamica do back-end
 consultaRouter.get(
-  '/boletos/:type/:bank',
+  '/:type/:bank',
   consultaController.getRecordsValidation,
   consultaController.getRecords
 );

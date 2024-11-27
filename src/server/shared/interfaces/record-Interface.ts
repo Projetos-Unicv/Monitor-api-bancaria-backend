@@ -1,5 +1,5 @@
 import { Bank } from '../database/entities/Bank';
-
+// interface de tipagem para a criação da entidade tabela
 export interface recordInterface {
   id: number;
   type: string;
