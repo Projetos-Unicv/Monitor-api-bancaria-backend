@@ -1,3 +1,4 @@
+// enums dos bancos disponiveis
 export enum bankOptions {
   BANCODOBRASIL_V2 = 'BANCODOBRASIL_V2',
   SANTADANDER = 'SANTANDER',

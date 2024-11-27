@@ -4,8 +4,11 @@ import { TypeRequest } from '../enums/TypeRequest';
 import { StateType } from '../enums/StateType';
 import { Bank } from '../../../shared/database/entities/Bank';
 
+// reposiório dos registros
 export const RecordRepository = AppDataSource.getRepository(Record).extend({
+  //listagem de registros
   ListRecords(bankId: number, type: string, limit: number) {
+    // caso de uso = verificar se o banco está ativo com base na última requisição
     if (limit === 1) {
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
@@ -14,6 +17,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .take(1) // Limita a 1 registro
         .getMany(); // Retorna apenas o primeiro (último criado)
     }
+    //listagem padrão de registros
     return this.createQueryBuilder('records')
       .where('records.type = :type', { type })
       .andWhere('records.bankId =:bankId', { bankId })
@@ -21,12 +25,14 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
       .take(limit) // Limita a quantidade de registros
       .getMany(); // Retorna uma lista de registros
   },
+  //listagem por status
   ListRecordsByStatus(
     bankId: number,
     type: string,
     limit: number,
     status: string
   ) {
+    // caso de uso = verificar se o banco está ativo com base na última requisição
     if (limit === 1) {
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
@@ -37,6 +43,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .getMany();
     }
     {
+      //caso de uso = popular tabela no front end com erros de cada bacno
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
@@ -46,6 +53,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .getMany(); // Retorna uma lista de registros
     }
   },
+  //criar um registro no banco
   CreateRecord(
     type: TypeRequest,
     CodeResponse: string,

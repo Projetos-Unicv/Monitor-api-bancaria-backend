@@ -6,6 +6,7 @@ import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
 import { recordInterface } from '../../../shared/interfaces/record-Interface';
 import { StateType } from '../enums/StateType';
 
+// serviço de buscar registro
 export class GetRecordsService {
   async execute(
     bank: string,
@@ -13,6 +14,7 @@ export class GetRecordsService {
     filter?: FilterTimes | undefined,
     status?: StateType | undefined
   ) {
+    // services
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
@@ -42,6 +44,7 @@ export class GetRecordsService {
       );
     }
 
+    // renomeia para PT-BR os campos para a requisição
     const arrayRenomeado = result.map((item) => ({
       Tipo: item.type,
       CodigoDaResposta: item.codeResponse,

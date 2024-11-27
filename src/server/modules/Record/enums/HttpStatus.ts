@@ -1,3 +1,4 @@
+// enusm das possiveis respostas da requisição do plugboleto
 export enum HttpStatus {
   Success = 200,
   BadRequest = 400,
