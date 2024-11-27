@@ -3,12 +3,11 @@ import 'dotenv/config'; // Importando variáveis de ambiente
 import './server/shared/services/Translations'; // Importando tradução dos erros do Yup
 import { router } from './server/shared/http/routes'; // routes
 import { AppDataSource } from './data-source'; // Typeorm dataBase
-import cors from 'cors';
+import cors from 'cors'; // lib para api ficar livre ao front
 import { handleAxiosError } from './server/shared/errors/ErrorAxios'; // erros
 import { ReqAll } from './server/api/RequestAll'; // função que percorre lista e faz consulta na tecnospeed
 
-// Inicializando o banco de dados
-// Lista de bancos para percorrer no back-end
+// Lista de bancos para percorrer no back-end atraves do .env
 const lista: string[] = process.env.Lista_Bancos?.split(',') || [];
 const fetchData = async () => {
   try {
@@ -19,10 +18,10 @@ const fetchData = async () => {
   }
 };
 
+// Inicializando o banco de dados
 AppDataSource.initialize()
   .then(() => {
     // Se a conexão for bem-sucedida, inicializa o servidor
-
     const server = express();
     //deixando api publica para o front-end
     server.use(cors());

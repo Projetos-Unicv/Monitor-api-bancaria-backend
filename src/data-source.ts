@@ -1,13 +1,15 @@
 import 'dotenv/config';
-import { dirname } from 'path';
 import 'reflect-metadata';
+import { dirname } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 import { Bank } from './server/shared/database/entities/Bank';
 import { Record } from './server/shared/database/entities/Record';
 import { ScriptSeeder } from './server/shared/database/script/ScriptSeeder';
 
-const port = process.env.DB_PORT as number | undefined;
+const port = process.env.DB_PORT as number | undefined; // porta do banco de dados do .env
+
+// parametros para a seed e migration do banco de dados
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -16,9 +18,9 @@ const options: DataSourceOptions & SeederOptions = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   synchronize: false, // Desative synchronize para gerar migrações corretamente
-  entities: [Bank, Record],
-  migrations: [`${__dirname}/server/shared/database/migrations/*.{ts,js}`],
-  migrationsTableName: 'Migrations',
-  seeds: [ScriptSeeder],
+  entities: [Bank, Record], // entidades
+  migrations: [`${__dirname}/server/shared/database/migrations/*.{ts,js}`], //local de migrations
+  migrationsTableName: 'Migrations', // tabela das migrations
+  seeds: [ScriptSeeder], // local da seed
 };
 export const AppDataSource = new DataSource(options);

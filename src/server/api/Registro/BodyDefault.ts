@@ -1,3 +1,4 @@
+// corpo padrão para realizar a requisição do plugboleto
 export const BodyDefault = {
   SacadoCPFCNPJ: '08357906000170',
   SacadoEnderecoNumero: '987',

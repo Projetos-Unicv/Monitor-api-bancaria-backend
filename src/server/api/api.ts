@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { env } from 'process';
 
+// configuração da api
 export const api = axios.create({
-  baseURL: `${process.env.URL_API}`,
+  baseURL: `${process.env.URL_API}`, // pegando a url da api pelas variaveis de ambiente
   headers: {
     'cnpj-sh': process.env.CNPJ_SH,
     'token-sh': process.env.TOKEN_SH,

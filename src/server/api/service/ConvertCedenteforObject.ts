@@ -3,8 +3,9 @@ import { TypeRequest } from '../../modules/Record/enums/TypeRequest';
 import { ICreateRecord } from '../../modules/Record/interfaces/ICreateRecord';
 import { ApiBodyInterface } from '../interfaces/ApiBodyInterface';
 
+// função para converter o cedente em objeto para salvar no banco de dados
 export const ConvertCedenteForRecord = async (
-  resu: ApiBodyInterface,
+  corpoRegistro: ApiBodyInterface,
   banco: string
 ): Promise<ICreateRecord> => {
   const serviceBanco = new getBankByNameService();
@@ -12,7 +13,7 @@ export const ConvertCedenteForRecord = async (
 
   var tipo: TypeRequest;
 
-  if (resu.type === 'consulta') {
+  if (corpoRegistro.type === 'consulta') {
     tipo = TypeRequest.CONSULTA;
   } else {
     tipo = TypeRequest.REGISTRO;
@@ -21,9 +22,9 @@ export const ConvertCedenteForRecord = async (
   const result: ICreateRecord = {
     bancoCode: Bank.bankCode,
     type: tipo,
-    timeReq: Number(resu.TempoReq),
-    codeResponse: String(resu.codeResponse),
-    payload: resu.payload,
+    timeReq: Number(corpoRegistro.TempoReq),
+    codeResponse: String(corpoRegistro.codeResponse),
+    payload: corpoRegistro.payload,
   };
   return result;
 };

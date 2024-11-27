@@ -1,6 +1,7 @@
+// corpo do registro para enviar ao service e salvar no banco
 export interface ApiBodyInterface {
   TempoReq: string; // Tempo da requisição
-  type: string;
+  type: string; // tipo do boleto
   codeResponse: number; // Código de resposta
   payload?: any; // Dados do boleto (opcional)
   message?: string; // Mensagem em caso de erro (opcional)
