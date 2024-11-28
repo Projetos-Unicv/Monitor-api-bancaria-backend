@@ -48,6 +48,7 @@ export const RegistroBoleto = async (
       // caso de respostas positivas
       if ([400, 401, 403, 422].includes(status)) {
         const end = performance.now();
+        // tempo de resposta atraves de uma operação matematica
         const ReqTime = (end - start).toFixed();
 
         const errorResponse = {

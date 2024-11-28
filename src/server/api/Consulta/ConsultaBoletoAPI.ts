@@ -39,6 +39,7 @@ export const ConsultaBoleto = async (
       if ([400, 401, 403, 422].includes(status)) {
         // terminando o tempo da requisição
         const end = performance.now();
+        //Sabendo o tempo da requisição
         const ReqTime = (end - start).toFixed();
 
         const errorResponse = {
@@ -55,6 +56,7 @@ export const ConsultaBoleto = async (
       } else if ([500, 504].includes(status)) {
         // terminando o tempo da requisição
         const end = performance.now();
+        //Sabendo o tempo da requisição
         const ReqTime = (end - start).toFixed();
 
         const errorResponse = {

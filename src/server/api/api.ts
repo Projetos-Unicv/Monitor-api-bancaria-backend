@@ -2,6 +2,7 @@ import axios from 'axios';
 import { env } from 'process';
 
 // configuração da api
+// pegando dados do dotenv para passar no headears
 export const api = axios.create({
   baseURL: `${process.env.URL_API}`, // pegando a url da api pelas variaveis de ambiente
   headers: {

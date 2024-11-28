@@ -1,4 +1,3 @@
-// corpo do registro para enviar ao service e salvar no banco
 export interface ApiBodyInterface {
   TempoReq: string; // Tempo da requisição
   type: string; // tipo do boleto

@@ -22,11 +22,9 @@ router.use(
   swaggerUI.setup(require(swaggerFilePath))
 );
 
-//rota padrão com resposta
 router.get('/', (_, res) => {
   //resposta ao conectar
   return res.send('Olá, dev!');
 });
 
-// rota de consultar os registros dos bancos
 router.use('/boletos', consultaRouter);

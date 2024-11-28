@@ -1,4 +1,3 @@
-// Credenciais do banco e ID do boleto para consultar o plug boleto
 export interface CedenteInterface {
   NOME_BANCO: string;
   CEDENTE_CONTA_NUMERO: string;

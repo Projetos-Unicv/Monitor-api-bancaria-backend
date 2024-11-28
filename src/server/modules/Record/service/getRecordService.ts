@@ -20,6 +20,8 @@ export class GetRecordsService {
     const Idbank = banco.id;
 
     // Definindo o limite com base no filtro
+    // um dia são feitas 288 requisições de 5 em 5 minutos
+    // e assim em diante
     let limit = 0;
     if (filter === 'DAY') {
       limit = 288;

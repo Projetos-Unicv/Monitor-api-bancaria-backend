@@ -9,9 +9,9 @@ export const ReqAll = async (Env_list: string[]) => {
   let i = 0; // contador para saber se todos os bancos já foram percorridos
   let erro = 0; // contar o numero de erros e mostrar
   while (i < Env_list.length) {
-    const nameBank = Env_list[i];
-    const dotenv = process.env[`${nameBank}`];
-    const cedente: CedenteInterface = await convert_Env(dotenv);
+    const nameBank = Env_list[i]; // buscando o nome do banco na lista
+    const dotenv = process.env[`${nameBank}`]; // Pegando o dados do dotenv com base no nome que está na lista
+    const cedente: CedenteInterface = await convert_Env(dotenv); // convertendo o cedente do banco em Objeto
 
     try {
       // faz a requisição do banco nos dois tipos de requisição (consulta | requisição)

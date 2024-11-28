@@ -45,6 +45,8 @@ export const getRecordsValidation = validation((getSchema) => ({
 // controlador de buscar resgistros
 export const getRecords = async (req: Request, res: Response) => {
   const { type, bank } = req.params; // parametros de busca
+
+  // caso o filter exista, ele ser como o tipo "FilterTimes" se não se torna undefined
   const filter: FilterTimes | undefined = req.query.filter // possiveis filtros
     ? (req.query.filter as FilterTimes)
     : undefined;
