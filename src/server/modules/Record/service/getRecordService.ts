@@ -1,9 +1,7 @@
-import { Record } from '../../../shared/database/entities/Record';
 import { RecordRepository } from '../repository/RecordRepository';
 import { getBankByNameService } from '../../Bank/service/getBankByNameService';
 import { FilterTimes } from '../enums/FilterTimes';
 import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
-import { recordInterface } from '../../../shared/interfaces/record-Interface';
 import { StateType } from '../enums/StateType';
 
 // serviço de buscar registro

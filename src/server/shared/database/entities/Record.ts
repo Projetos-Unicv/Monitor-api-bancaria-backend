@@ -20,7 +20,7 @@ export class Record implements recordInterface {
   @Column({ type: 'varchar', length: 50, nullable: false })
   type: string;
 
-  @Column({ type: 'int', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   codeResponse: string;
 
   @Index('Bank-idx')

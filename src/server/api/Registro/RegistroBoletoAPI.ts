@@ -36,7 +36,7 @@ export const RegistroBoleto = async (
       TempoReq: ReqTime,
       payload,
       type: 'registro',
-      codeResponse: response.status,
+      codeResponse: String(response.status),
     };
     return registro; // retorna a resposta da requisição
   } catch (error) {
@@ -54,7 +54,7 @@ export const RegistroBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'registro',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `${status}: requisição feita, api online.`,
           payload: data,
         };
@@ -70,7 +70,7 @@ export const RegistroBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'registro',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
           payload: data,
         };
@@ -88,7 +88,7 @@ export const RegistroBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'registro',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
           payload: data,
         };

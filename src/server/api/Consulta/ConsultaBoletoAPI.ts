@@ -23,7 +23,7 @@ export const ConsultaBoleto = async (
     const registro = {
       TempoReq: ReqTime,
       type: 'consulta',
-      codeResponse: response.status,
+      codeResponse: String(response.status),
       message: `${response.status}: requisição feita, api online.`,
       payload,
     };
@@ -45,7 +45,7 @@ export const ConsultaBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'consulta',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `${status}: requisição feita, api online.`,
           details: data,
         };
@@ -62,7 +62,7 @@ export const ConsultaBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'consulta',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
           details: data,
         };
@@ -77,7 +77,7 @@ export const ConsultaBoleto = async (
         const errorResponse = {
           TempoReq: ReqTime,
           type: 'consulta',
-          codeResponse: status,
+          codeResponse: String(status),
           message: `Erro ${status}: Ocorreu um problema na requisição, api offline.`,
           details: data,
         };
