@@ -23,7 +23,7 @@ export const ConvertCedenteForRecord = async (
     bancoCode: Bank.bankCode,
     type: tipo,
     timeReq: Number(corpoRegistro.TempoReq),
-    codeResponse: String(corpoRegistro.codeResponse),
+    codeResponse: corpoRegistro.codeResponse,
     payload: corpoRegistro.payload,
   };
   return result;

@@ -56,7 +56,7 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
   //criar um registro no banco
   CreateRecord(
     type: TypeRequest,
-    CodeResponse: string,
+    CodeResponse: number,
     status: StateType,
     timeRequest: number,
     payload: object,

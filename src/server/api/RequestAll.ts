@@ -26,6 +26,13 @@ export const ReqAll = async (Env_list: string[]) => {
       const resultRegister = await RegistroBoleto(cedente);
       const resultConsult = await ConsultaBoleto(cedente);
 
+      // contador de erro
+      if (resultConsult.erro === true) {
+        erro += 1;
+      }
+      if (resultRegister.erro === true) {
+        erro += 1;
+      }
       // converte a resposta para objeto
       const registro = await ConvertCedenteForRecord(
         resultRegister,

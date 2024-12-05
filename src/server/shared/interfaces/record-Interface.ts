@@ -2,7 +2,7 @@ import { Bank } from '../database/entities/Bank';
 export interface recordInterface {
   id: number;
   type: string;
-  codeResponse: string;
+  codeResponse: number;
   bank: Bank;
   dateCreated: Date;
   status: string;

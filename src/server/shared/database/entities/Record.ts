@@ -20,8 +20,8 @@ export class Record implements recordInterface {
   @Column({ type: 'varchar', length: 50, nullable: false })
   type: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  codeResponse: string;
+  @Column({ type: 'int', nullable: false })
+  codeResponse: number;
 
   @Index('Bank-idx')
   @ManyToOne(() => Bank, (bank) => bank.records, { onDelete: 'CASCADE' })
