@@ -1,3 +1,4 @@
+import { PositiveCodeRequest } from '../../shared/enums/PositiveCodeRequest';
 import { api } from '../api';
 import { ApiBodyInterface } from '../interfaces/ApiBodyInterface';
 import { CedenteInterface } from '../interfaces/CedenteInterface';
@@ -11,10 +12,7 @@ interface AxiosError {
 }
 
 // Função para tratar erros da API
-const handleApiError = (
-  error: unknown,
-  startTime: number
-): ApiBodyInterface => {
+const handleApiError = (error: any, startTime: number): ApiBodyInterface => {
   const end = performance.now();
   const ReqTime = (end - startTime).toFixed();
   const axiosError = error as AxiosError;
@@ -27,7 +25,7 @@ const handleApiError = (
       type: 'consulta',
       codeResponse: status,
       message: `[${status}] ${
-        [200, 400, 401, 403, 422].includes(status)
+        Object.values(PositiveCodeRequest).includes(status)
           ? 'Requisição feita, API online, mas ocorreu um problema.'
           : 'Ocorreu um problema na requisição, API offline.'
       }`,
@@ -35,12 +33,18 @@ const handleApiError = (
     };
   }
 
-  console.error(`Erro inesperado ao realizar consulta:`, error);
+  console.error('Erro inesperado ao registrar boleto:', error);
 
+  let codeError: number = 0;
+  if (error.code === 'ECONNREFUSED') {
+    codeError = 111;
+  } else if (error.code === 'ECONNRESET') {
+    codeError = 104;
+  }
   return {
     TempoReq: ReqTime,
     type: 'consulta',
-    codeResponse: 0,
+    codeResponse: codeError,
     message: `Erro inesperado ao realizar consulta.`,
     payload: error instanceof Error ? error.message : error,
   };

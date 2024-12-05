@@ -1,4 +1,6 @@
 export enum HttpStatus {
+  ECONNRESET = 104,
+  ECONNREFUSED = 111,
   Success = 200,
   BadRequest = 400,
   Unauthorized = 401,

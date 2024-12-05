@@ -1,4 +1,4 @@
-import { PositiveCodeRequest } from '../../../shared/enums/CodeRequest';
+import { PositiveCodeRequest } from '../../../shared/enums/PositiveCodeRequest';
 import { ConvertResponseStatus } from '../../../shared/services/ConvertResponseStatus';
 import { getHttpStatusText } from '../../../shared/services/GetHttpStatusText';
 import { getBankByNameService } from '../../Bank/service/getBankByNameService';

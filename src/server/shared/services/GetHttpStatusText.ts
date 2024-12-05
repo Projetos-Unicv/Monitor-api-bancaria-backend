@@ -5,6 +5,10 @@ export const getHttpStatusText = async (
   statusCode: number
 ): Promise<string> => {
   switch (statusCode) {
+    case HttpStatus.ECONNRESET:
+      return Promise.resolve('ECONNRESET');
+    case HttpStatus.ECONNREFUSED:
+      return Promise.resolve('ECONNREFUSED');
     case HttpStatus.Success:
       return Promise.resolve('Success');
     case HttpStatus.BadRequest:

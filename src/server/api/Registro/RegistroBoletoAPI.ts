@@ -1,7 +1,10 @@
+import { PositiveCodeRequest } from '../../shared/enums/PositiveCodeRequest';
 import { api } from '../api';
 import { ApiBodyInterface } from '../interfaces/ApiBodyInterface';
 import { CedenteInterface } from '../interfaces/CedenteInterface';
 import { BodyDefault } from './BodyDefault';
+
+// Parâmetros do erro de API
 
 interface AxiosError {
   response?: {
@@ -10,10 +13,8 @@ interface AxiosError {
   };
 }
 
-const handleApiError = (
-  error: unknown,
-  startTime: number
-): ApiBodyInterface => {
+// Função para tratar erros da API
+const handleApiError = (error: any, startTime: number): ApiBodyInterface => {
   const end = performance.now();
   const ReqTime = (end - startTime).toFixed();
   const axiosError = error as AxiosError;
@@ -26,7 +27,7 @@ const handleApiError = (
       type: 'registro',
       codeResponse: status,
       message: `[${status}] ${
-        [200, 400, 401, 403, 422].includes(status)
+        Object.values(PositiveCodeRequest).includes(status)
           ? 'Requisição feita, API online, mas ocorreu um problema.'
           : 'Ocorreu um problema na requisição, API offline.'
       }`,
@@ -36,10 +37,16 @@ const handleApiError = (
 
   console.error('Erro inesperado ao registrar boleto:', error);
 
+  let codeError: number = 0;
+  if (error.code === 'ECONNREFUSED') {
+    codeError = 111;
+  } else if (error.code === 'ECONNRESET') {
+    codeError = 104;
+  }
   return {
     TempoReq: ReqTime,
     type: 'registro',
-    codeResponse: 0,
+    codeResponse: codeError,
     message: 'Erro inesperado ao registrar o boleto.',
     payload: error instanceof Error ? error.message : error,
     erro: true,
@@ -59,7 +66,7 @@ export const RegistroBoleto = async (
 
   const start = performance.now(); // Captura o tempo inicial
   const requestBody = {
-    ...BodyDefault, // Presumindo que BodyDefault esteja definido em outro lugar
+    ...BodyDefault, // BodyDefault definido
     ...DadosCedentes, // Adiciona dados do cedente ao requestBody
   };
 
@@ -71,10 +78,10 @@ export const RegistroBoleto = async (
 
     return {
       TempoReq: ReqTime,
-      payload,
       type: 'registro',
       codeResponse: response.status,
       message: `${response.status}: requisição feita, API online.`,
+      payload,
     };
   } catch (error) {
     return handleApiError(error, start);
