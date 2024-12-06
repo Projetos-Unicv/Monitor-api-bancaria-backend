@@ -6,8 +6,8 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
-} from 'typeorm'; // importação de funcionalidades do typeorm
-
+  BeforeInsert,
+} from 'typeorm';
 import { recordInterface } from '../../interfaces/record-Interface';
 import { Bank } from './Bank';
 
@@ -28,7 +28,7 @@ export class Record implements recordInterface {
   @JoinColumn({ name: 'bankId' })
   bank: Bank;
 
-  @CreateDateColumn({ type: 'timestamp', nullable: false })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   dateCreated: Date;
 
   @Index('status-idx')
@@ -46,4 +46,36 @@ export class Record implements recordInterface {
 
   @Column({ type: 'varchar', length: 50, nullable: false })
   responseStatus: string;
+
+  // Colunas de data no banco
+  @Index('mouth-idx')
+  @Column({ type: 'int', nullable: true })
+  mouth: number;
+
+  @Index('day-idx')
+  @Column({ type: 'int', nullable: true })
+  day: number;
+
+  @Index('hour-idx')
+  @Column({ type: 'int', nullable: true })
+  hour: number;
+
+  @Index('minute-idx')
+  @Column({ type: 'int', nullable: true })
+  minute: number;
+
+  @Index('second-idx')
+  @Column({ type: 'int', nullable: true })
+  second: number;
+
+  // Metodo de inserção de dados da data antes de salvar no banco
+  @BeforeInsert()
+  setDateParts() {
+    const date = this.dateCreated || new Date(); // Garante que sempre exista uma data
+    this.mouth = date.getMonth() + 1; // Mês começa em 0
+    this.day = date.getDate();
+    this.hour = date.getHours();
+    this.minute = date.getMinutes();
+    this.second = date.getSeconds();
+  }
 }

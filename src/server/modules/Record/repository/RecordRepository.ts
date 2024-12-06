@@ -53,8 +53,8 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .getMany(); // Retorna uma lista de registros
     }
   },
-  //criar um registro no banco
-  CreateRecord(
+  //Criar um registro no banco
+  async CreateRecord(
     type: TypeRequest,
     CodeResponse: number,
     status: StateType,
@@ -64,19 +64,23 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
     detailing: string,
     responseStatus: string
   ) {
-    return this.createQueryBuilder('records')
-      .insert()
-      .into(Record)
-      .values({
-        type: type,
-        codeResponse: CodeResponse,
-        status: status,
-        timeRequest: timeRequest,
-        payloadResponse: payload,
-        bank: bankId,
-        detailing: detailing,
-        responseStatus,
-      })
-      .execute();
+    // Obtenha o repositório do Record
+    const recordRepository = AppDataSource.getRepository(Record);
+
+    // Crie a instância do Record
+    const newRecord = recordRepository.create({
+      type,
+      codeResponse: CodeResponse,
+      status,
+      timeRequest,
+      payloadResponse: payload,
+      bank: bankId,
+      detailing,
+      responseStatus,
+    });
+
+    // Salva a instância, o que irá chamar o @BeforeInsert()
+    await recordRepository.save(newRecord);
+    return newRecord;
   },
 });

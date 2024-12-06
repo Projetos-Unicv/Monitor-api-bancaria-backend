@@ -20,7 +20,7 @@ const options: DataSourceOptions & SeederOptions = {
   synchronize: false, // Desative synchronize para gerar migrações corretamente
   entities: [Bank, Record],
   migrations: [`${__dirname}/server/shared/database/migrations/*.{ts,js}`], //local de migrations
-  migrationsTableName: 'Migrations', // tabela das migrations
+  migrationsTableName: 'migrations', // tabela das migrations
   seeds: [ScriptSeeder], // local da seed
 };
 export const AppDataSource = new DataSource(options);
