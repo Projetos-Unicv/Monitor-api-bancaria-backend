@@ -48,9 +48,14 @@ export class Record implements recordInterface {
   responseStatus: string;
 
   // Colunas de data no banco
-  @Index('mouth-idx')
+
+  @Index('year-idx')
   @Column({ type: 'int', nullable: true })
-  mouth: number;
+  year: number;
+
+  @Index('month-idx')
+  @Column({ type: 'int', nullable: true })
+  month: number;
 
   @Index('day-idx')
   @Column({ type: 'int', nullable: true })
@@ -72,7 +77,8 @@ export class Record implements recordInterface {
   @BeforeInsert()
   setDateParts() {
     const date = this.dateCreated || new Date(); // Garante que sempre exista uma data
-    this.mouth = date.getMonth() + 1; // Mês começa em 0
+    this.year = date.getFullYear();
+    this.month = date.getMonth() + 1; // Mês começa em 0
     this.day = date.getDate();
     this.hour = date.getHours();
     this.minute = date.getMinutes();
