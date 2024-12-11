@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import * as yup from 'yup'; // lib de validação
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -15,9 +15,9 @@ import { IParamsSchema } from '../schemas/IParamsSchema';
 import { IQueryProps } from '../interfaces/IQueryProps';
 import AppError from '../../../shared/errors/AppError';
 
-//validador das requisições de registro
+// Validador das requisições de registro
 export const getRecordsValidation = validation((getSchema) => ({
-  // faz uma validação dos campos recebidos com os campos que é requerido no Query
+  // Faz uma validação dos campos recebidos com os campos que são requeridos no Query
   query: getSchema<IQueryProps>(
     yup.object().shape({
       filter: yup
@@ -27,7 +27,7 @@ export const getRecordsValidation = validation((getSchema) => ({
       status: yup.mixed<StateType>().oneOf(Object.values(StateType)).optional(),
     })
   ),
-  // faz uma validação dos campos recebidos com os campos que é requerido no Params
+  // Faz uma validação dos campos recebidos com os campos que são requeridos no Params
   params: getSchema<IParamsSchema>(
     yup.object().shape({
       bank: yup
@@ -42,25 +42,22 @@ export const getRecordsValidation = validation((getSchema) => ({
   ),
 }));
 
-// controlador de buscar resgistros
+// Controlador para buscar registros
 export const getRecords = async (req: Request, res: Response) => {
-  const { type, bank } = req.params; // parametros de busca
+  const { type, bank } = req.params; // Parâmetros de busca
 
-  // caso o filter exista, ele ser como o tipo "FilterTimes" se não se torna undefined
-  const filter: FilterTimes | undefined = req.query.filter // possiveis filtros
+  // Tratamento dos filtros opcionais no Query
+  const filter: FilterTimes | undefined = req.query.filter
     ? (req.query.filter as FilterTimes)
     : undefined;
   const status: StateType | undefined = req.query.status
     ? (req.query.status as StateType)
     : undefined;
-
-  const service = new GetRecordsService(); // declarando service
+  const service = new GetRecordsService(); // Declarando service
 
   try {
     const result = await service.execute(bank, type, filter, status);
-    return res.status(StatusCodes.OK).json(result); // retorna os registros
-
-    // caso ocorra erro ao solicitar registros
+    return res.status(StatusCodes.OK).json(result); // Retorna os registros
   } catch (error) {
     console.error('Erro ao obter registros:', error);
     if (error instanceof AppError) {

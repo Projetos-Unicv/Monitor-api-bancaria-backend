@@ -3,6 +3,7 @@ import { getBankByNameService } from '../../Bank/service/getBankByNameService';
 import { FilterTimes } from '../enums/FilterTimes';
 import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
 import { StateType } from '../enums/StateType';
+import { parseDate } from '../../../shared/services/ParseDate';
 
 // serviço de buscar registro
 export class GetRecordsService {
@@ -12,29 +13,48 @@ export class GetRecordsService {
     filter?: FilterTimes | undefined,
     status?: StateType | undefined
   ) {
+    const daada = new Date();
     // services
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
 
-    // Definindo o limite com base no filtro
-    // um dia são feitas 288 requisições de 5 em 5 minutos
-    // e assim em diante
+    let startDate = {
+      year: 0,
+      month: 0,
+      day: 0,
+      hour: 0,
+      minute: 0,
+      second: 0,
+    };
+    let endDate = { year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0 };
+    endDate = parseDate(daada.toString());
+    console.log(endDate);
+    startDate = { ...endDate };
+
     let limit = 0;
     if (filter === 'DAY') {
-      limit = 288;
+      startDate.day -= 1;
     } else if (filter === 'WEEK') {
-      limit = 2016;
+      startDate.day -= 7;
     } else if (filter === 'LAST') {
       limit = 1;
-    } else {
-      limit = 8640;
+    } else if (filter === 'MOUTH') {
+      startDate.month -= 1;
     }
+    console.log(startDate);
+    console.log(endDate);
+
     let result;
 
     // Verifica se o status é indefinido e chama a função adequada
     if (status === undefined) {
-      result = await RecordRepository.ListRecords(Idbank, type, limit);
+      result = await RecordRepository.ListRecordsBetween(
+        Idbank,
+        type,
+        startDate,
+        endDate
+      );
     } else {
       result = await RecordRepository.ListRecordsByStatus(
         Idbank,

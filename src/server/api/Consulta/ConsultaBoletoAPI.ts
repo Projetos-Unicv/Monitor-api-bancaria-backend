@@ -40,6 +40,8 @@ const handleApiError = (error: any, startTime: number): ApiBodyInterface => {
     codeError = 111;
   } else if (error.code === 'ECONNRESET') {
     codeError = 104;
+  } else if (error.code === 'ENOTFOUND') {
+    codeError = 3008;
   }
   return {
     TempoReq: ReqTime,
