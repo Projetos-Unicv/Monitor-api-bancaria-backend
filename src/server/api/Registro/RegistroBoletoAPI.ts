@@ -2,6 +2,7 @@ import { PositiveCodeRequest } from '../../shared/enums/PositiveCodeRequest';
 import { api } from '../api';
 import { ApiBodyInterface } from '../interfaces/ApiBodyInterface';
 import { CedenteInterface } from '../interfaces/CedenteInterface';
+import { handleApiError } from '../service/handleApiError';
 import { BodyDefault } from './BodyDefault';
 
 // Parâmetros do erro de API
@@ -12,48 +13,6 @@ interface AxiosError {
     data: any;
   };
 }
-
-// Função para tratar erros da API
-const handleApiError = (error: any, startTime: number): ApiBodyInterface => {
-  const end = performance.now();
-  const ReqTime = (end - startTime).toFixed();
-  const axiosError = error as AxiosError;
-
-  if (axiosError.response) {
-    const { status, data } = axiosError.response;
-
-    return {
-      TempoReq: ReqTime,
-      type: 'registro',
-      codeResponse: status,
-      message: `[${status}] ${
-        Object.values(PositiveCodeRequest).includes(status)
-          ? 'Requisição feita, API online, mas ocorreu um problema.'
-          : 'Ocorreu um problema na requisição, API offline.'
-      }`,
-      payload: data,
-    };
-  }
-
-  console.error('Erro inesperado ao registrar boleto:', error);
-
-  let codeError: number = 0;
-  if (error.code === 'ECONNREFUSED') {
-    codeError = 111;
-  } else if (error.code === 'ECONNRESET') {
-    codeError = 104;
-  } else if (error.code === 'ENOTFOUND') {
-    codeError = 3008;
-  }
-  return {
-    TempoReq: ReqTime,
-    type: 'registro',
-    codeResponse: codeError,
-    message: 'Erro inesperado ao registrar o boleto.',
-    payload: error instanceof Error ? error.message : error,
-    erro: true,
-  };
-};
 
 // Função para realizar o registro de boleto no plugboleto
 export const RegistroBoleto = async (
@@ -86,6 +45,7 @@ export const RegistroBoleto = async (
       payload,
     };
   } catch (error) {
-    return handleApiError(error, start);
+    // Função para tratar erros da API
+    return handleApiError(error, start, 'registro');
   }
 };
