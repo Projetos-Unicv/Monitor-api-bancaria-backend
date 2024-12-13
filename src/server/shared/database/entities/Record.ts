@@ -28,6 +28,7 @@ export class Record implements recordInterface {
   @JoinColumn({ name: 'bankId' })
   bank: Bank;
 
+  @Index('date-idx')
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   dateCreated: Date;
 

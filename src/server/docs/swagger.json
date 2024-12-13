@@ -25,7 +25,7 @@
             "name": "bank",
             "in": "path",
             "required": true,
-            "description": "Código do banco ",
+            "description": "Código do banco",
             "schema": {
               "type": "string",
               "enum": [
@@ -49,7 +49,7 @@
             "description": "Filtro de tempo",
             "schema": {
               "type": "string",
-              "enum": ["DAY", "WEEK", "MOUTH", "LAST"]
+              "enum": ["DAY", "WEEK", "MONTH", "LAST"]
             }
           },
           {
@@ -85,6 +85,77 @@
           }
         }
       }
+    },
+    "/boletos/list-records": {
+      "post": {
+        "summary": "Listar registros e consultas de boletos",
+        "description": "Listar registros e consultas de boletos com filtros de valores.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Tipo de requisição",
+                    "enum": ["consulta", "registro"]
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Status da requisição",
+                    "enum": ["ativo", "inativo"]
+                  },
+                  "bank": {
+                    "type": "string",
+                    "description": "Nome do banco",
+                    "enum": [
+                      "BANCODOBRASIL_V2",
+                      "SANTANDER",
+                      "BANRISUL",
+                      "INTER",
+                      "CAIXA",
+                      "ITAU_V2",
+                      "ITAU_FRANCESA",
+                      "SICREDI_V2",
+                      "SICREDI_V3",
+                      "SICOOB_V2"
+                    ]
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "description": "Período inicial de busca (formato: YYYY-MM-DD)"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "description": "Período final de busca (formato: YYYY-MM-DD)"
+                  }
+                },
+                "required": ["type", "bank", "startDate", "endDate"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista de registros de boletos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoletoRecord"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação nos dados fornecidos"
+          },
+          "500": {
+            "description": "Erro inesperado ao processar a solicitação"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -92,27 +163,23 @@
       "BoletoRecord": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "description": "ID do registro do boleto"
-          },
-          "type": {
+          "Tipo": {
             "type": "string",
             "description": "Tipo de requisição"
           },
-          "codeResponse": {
+          "CodigoDaResposta": {
             "type": "number",
             "description": "Código do status da requisição"
           },
-          "dateCreated": {
+          "HoraDaConsulta": {
             "type": "string",
             "description": "Data de criação da requisição"
           },
-          "status": {
+          "Status": {
             "type": "string",
             "description": "Status da requisição"
           },
-          "timeRequest": {
+          "TempoDeResposta": {
             "type": "number",
             "description": "tempo de Resposta da requisição"
           },
@@ -120,11 +187,11 @@
             "type": "object",
             "description": "Corpo da resposta da requisição"
           },
-          "detailing": {
+          "Detalhamento": {
             "type": "string",
             "description": "Detalhamento da resposta da requisiçaõ"
           },
-          "ResponseStatus": {
+          "StatusDaResposta": {
             "type": "string",
             "description": "Detalhamento do tempo de resposta"
           }

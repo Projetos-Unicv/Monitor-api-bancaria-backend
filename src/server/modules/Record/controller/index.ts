@@ -1,5 +1,6 @@
 import * as getAll from './getRecordController';
-
-export const consultaController = {
+import * as listRecord from './listRecordController';
+export const recordController = {
   ...getAll,
+  ...listRecord,
 };

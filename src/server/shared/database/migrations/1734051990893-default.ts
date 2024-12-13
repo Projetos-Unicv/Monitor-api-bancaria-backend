@@ -1,13 +1,17 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class default1733946552028 implements MigrationInterface {
-  name = 'default1733946552028';
+export class default1734051990893 implements MigrationInterface {
+  name = 'default1734051990893';
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "records" ("id" SERIAL NOT NULL, "type" character varying(50) NOT NULL, "codeResponse" integer NOT NULL, "dateCreated" TIMESTAMP NOT NULL DEFAULT now(), "status" character varying(10) NOT NULL, "timeRequest" integer NOT NULL, "payloadResponse" jsonb NOT NULL, "detailing" character varying(50) NOT NULL, "responseStatus" character varying(50) NOT NULL, "month" integer, "day" integer, "hour" integer, "minute" integer, "second" integer, "year" integer, "bankId" integer, CONSTRAINT "PK_188149422ee2454660abf1d5ee5" PRIMARY KEY ("id"))`
+      `CREATE TABLE "records" ("id" SERIAL NOT NULL, "type" character varying(50) NOT NULL, "codeResponse" integer NOT NULL, "dateCreated" TIMESTAMP NOT NULL DEFAULT now(), "status" character varying(10) NOT NULL, "timeRequest" integer NOT NULL, "payloadResponse" jsonb NOT NULL, "detailing" character varying(50) NOT NULL, "responseStatus" character varying(50) NOT NULL, "year" integer, "month" integer, "day" integer, "hour" integer, "minute" integer, "second" integer, "bankId" integer, CONSTRAINT "PK_188149422ee2454660abf1d5ee5" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(`CREATE INDEX "Type-idx" ON "records" ("type") `);
     await queryRunner.query(`CREATE INDEX "Bank-idx" ON "records" ("bankId") `);
+    await queryRunner.query(
+      `CREATE INDEX "date-idx" ON "records" ("dateCreated") `
+    );
     await queryRunner.query(
       `CREATE INDEX "status-idx" ON "records" ("status") `
     );
@@ -36,13 +40,14 @@ export class default1733946552028 implements MigrationInterface {
     );
     await queryRunner.query(`DROP INDEX "public"."name-idx"`);
     await queryRunner.query(`DROP TABLE "banks"`);
-    await queryRunner.query(`DROP INDEX "public"."year-idx"`);
     await queryRunner.query(`DROP INDEX "public"."second-idx"`);
     await queryRunner.query(`DROP INDEX "public"."minute-idx"`);
     await queryRunner.query(`DROP INDEX "public"."hour-idx"`);
     await queryRunner.query(`DROP INDEX "public"."day-idx"`);
     await queryRunner.query(`DROP INDEX "public"."month-idx"`);
+    await queryRunner.query(`DROP INDEX "public"."year-idx"`);
     await queryRunner.query(`DROP INDEX "public"."status-idx"`);
+    await queryRunner.query(`DROP INDEX "public"."date-idx"`);
     await queryRunner.query(`DROP INDEX "public"."Bank-idx"`);
     await queryRunner.query(`DROP INDEX "public"."Type-idx"`);
     await queryRunner.query(`DROP TABLE "records"`);

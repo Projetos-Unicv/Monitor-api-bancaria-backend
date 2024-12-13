@@ -24,9 +24,9 @@ export class createRecordsService {
     const codigosPositivos = Object.values(PositiveCodeRequest);
     const detailing = await getHttpStatusText(Number(codeResponse));
 
-    if (typeof codeResponse === 'string') {
-      console.log('código da resposta com erro', codeResponse);
-    }
+    // if (typeof codeResponse === 'string') {
+    //   console.log('código da resposta com erro', codeResponse);
+    // }
     // operação base para descobrir o status da requisição
     let status: StateType;
     if (codigosPositivos.includes(Number(codeResponse))) {

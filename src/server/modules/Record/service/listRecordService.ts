@@ -1,25 +1,23 @@
-import { RecordRepository } from '../repository/RecordRepository';
-import { getBankByNameService } from '../../Bank/service/getBankByNameService';
-import { FilterTimes } from '../enums/FilterTimes';
 import { formatarDataParaBrasil } from '../../../shared/services/ConvertData';
-import { StateType } from '../enums/StateType';
 import { parseDate } from '../../../shared/services/ParseDate';
+import { bankOptions } from '../../Bank/enums/Banks';
+import { getBankByNameService } from '../../Bank/service/getBankByNameService';
+import { StateType } from '../enums/StateType';
+import { TypeRequest } from '../enums/TypeRequest';
+import { RecordRepository } from '../repository/RecordRepository';
 
-// serviço de buscar registro
-export class GetRecordsService {
+export class listRecordService {
   async execute(
-    bank: string,
-    type: string,
-    filter?: FilterTimes | undefined,
+    bank: bankOptions,
+    type: TypeRequest,
+    startDate: string,
+    endDate: string,
     status?: StateType | undefined
   ) {
-    const daada = new Date();
-    // services
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
     const Idbank = banco.id;
-
-    let startDate = {
+    let initDate = {
       year: 0,
       month: 0,
       day: 0,
@@ -27,30 +25,26 @@ export class GetRecordsService {
       minute: 0,
       second: 0,
     };
-    let endDate = { year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0 };
-    endDate = parseDate(daada.toString());
-    startDate = { ...endDate };
-
-    let limit = 0;
-    if (filter === 'DAY') {
-      startDate.day -= 1;
-    } else if (filter === 'WEEK') {
-      startDate.day -= 7;
-    } else if (filter === 'LAST') {
-      limit = 1;
-    } else if (filter === 'MOUTH') {
-      startDate.month -= 1;
-    }
+    let finalDate = {
+      year: 0,
+      month: 0,
+      day: 0,
+      hour: 0,
+      minute: 0,
+      second: 0,
+    };
+    initDate = parseDate(startDate);
+    finalDate = parseDate(endDate);
 
     let result;
+    let limit = 2;
 
-    // Verifica se o status é indefinido e chama a função adequada
     if (status === undefined) {
       result = await RecordRepository.ListRecordsBetween(
         Idbank,
         type,
-        startDate,
-        endDate
+        initDate,
+        finalDate
       );
     } else {
       result = await RecordRepository.ListRecordsByStatus(
@@ -60,8 +54,6 @@ export class GetRecordsService {
         status
       );
     }
-
-    // renomeia para PT-BR os campos para a requisição
     const arrayRenomeado = result.map((item) => ({
       Tipo: item.type,
       CodigoDaResposta: item.codeResponse,
@@ -73,8 +65,6 @@ export class GetRecordsService {
       Detalhamento: item.detailing,
       StatusDaResposta: item.responseStatus,
     }));
-
-    // Verifica se result existe e contém pelo menos um registro
     if (Array.isArray(result) && result.length > 0) {
       // Formata o campo dateCreated de cada registro
       const registrosFormatados = arrayRenomeado.map((record: any) => ({

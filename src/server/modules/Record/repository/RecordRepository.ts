@@ -93,7 +93,6 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
         .andWhere('records.bankId = :bankId', { bankId })
         .andWhere('records.status = :status', { status })
         .orderBy('records.dateCreated', 'ASC') // Ordena de mais antigo para mais novo
-        .take(limit) // Limita a quantidade de registros
         .getMany(); // Retorna uma lista de registros
     }
   },
