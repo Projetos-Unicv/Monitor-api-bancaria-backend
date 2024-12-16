@@ -45,12 +45,23 @@ export class GetRecordsService {
     let result;
 
     // Verifica se o status é indefinido e chama a função adequada
-    if (status === undefined) {
+    // retornar apenas registros positivos ou negativos
+    if (status !== undefined && filter !== 'LAST') {
       result = await RecordRepository.ListRecordsBetween(
         Idbank,
         type,
         startDate,
-        endDate
+        endDate,
+        status
+      );
+      // retornar todos os registros
+    } else if (status === undefined && filter !== 'LAST') {
+      result = await RecordRepository.ListRecordsBetween(
+        Idbank,
+        type,
+        startDate,
+        endDate,
+        status
       );
     } else {
       result = await RecordRepository.ListRecordsByStatus(

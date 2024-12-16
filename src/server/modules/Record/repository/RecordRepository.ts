@@ -25,9 +25,10 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
       hour: number;
       minute: number;
       second: number;
-    }
+    },
+    status?: string // status opcional
   ) {
-    return this.createQueryBuilder('records')
+    const query = this.createQueryBuilder('records')
       .where('records.type = :type', { type })
       .andWhere('records.bankId = :bankId', { bankId })
       .andWhere(
@@ -66,22 +67,36 @@ export const RecordRepository = AppDataSource.getRepository(Record).extend({
       .addOrderBy('records.day', 'ASC')
       .addOrderBy('records.hour', 'ASC')
       .addOrderBy('records.minute', 'ASC')
-      .addOrderBy('records.second', 'ASC')
-      .getMany();
+      .addOrderBy('records.second', 'ASC');
+
+    // Condicional para o campo 'status' caso ele seja passado
+    if (status !== undefined) {
+      query.andWhere('records.status = :status', { status });
+    }
+
+    return query.getMany();
   },
   //listagem por status
   ListRecordsByStatus(
     bankId: number,
     type: string,
     limit: number,
-    status: string
+    status: string | undefined
   ) {
     // caso de uso = verificar se o banco está ativo com base na última requisição
-    if (limit === 1) {
+    if (limit === 1 && status !== undefined) {
       return this.createQueryBuilder('records')
         .where('records.type = :type', { type })
         .andWhere('records.bankId = :bankId', { bankId })
         .andWhere('records.status = :status', { status })
+        .orderBy('records.dateCreated', 'DESC') // Ordena de mais recente para mais antigo
+        .take(limit)
+        .getMany();
+    }
+    if (limit === 1 && status === undefined) {
+      return this.createQueryBuilder('records')
+        .where('records.type = :type', { type })
+        .andWhere('records.bankId = :bankId', { bankId })
         .orderBy('records.dateCreated', 'DESC') // Ordena de mais recente para mais antigo
         .take(limit)
         .getMany();
