@@ -13,7 +13,7 @@ export class GetRecordsService {
     filter?: FilterTimes | undefined,
     status?: StateType | undefined
   ) {
-    const daada = new Date();
+    const DateNow = new Date();
     // services
     const servicebank = new getBankByNameService();
     const banco = await servicebank.execute(bank);
@@ -28,7 +28,7 @@ export class GetRecordsService {
       second: 0,
     };
     let endDate = { year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0 };
-    endDate = parseDate(daada.toString());
+    endDate = parseDate(DateNow.toString());
     startDate = { ...endDate };
 
     let limit = 0;
