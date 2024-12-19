@@ -2,9 +2,9 @@
 
 # Sobre
 
-O "monitor-web" é uma aplicação desenvolvida para facilitar ...
+O "monitor-web" é uma aplicação desenvolvida para facilitar o monitoramento de APIs bancárias, com foco na eficiência e na experiência do usuário. O desafio proposto foi tão ambicioso quanto inspirador: desenvolver uma aplicação web inovadora para monitoramento de APIs bancárias. A meta era criar um layout funcional e intuitivo, que permitisse identificar, de forma simples e eficiente, o status operacional das APIs de boletos bancários.
 
-O sistema foi projetado para ser de fácil utilização e tem como propósito oferecer ...
+Foram quatro meses de intensa dedicação, onde tecnologia e inovação caminharam lado a lado em busca de soluções que atendem às demandas do mercado financeiro com excelência. O sistema foi projetado para ser de fácil utilização e tem como propósito oferecer uma plataforma confiável e prática para os usuários..
 
 # Tecnologias utilizadas
 
